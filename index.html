@@ -1,0 +1,1788 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>ЭХО-7</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Press+Start+2P&display=swap">
+<style>
+/* Layout: пролог-кино на весь экран → ЭЛТ-монитор на столе → внутри рабочий стол ВЕГА-ОС с окнами, иконками и панелью задач */
+:root{
+  --room:#0a0b09;
+  --bezel-hi:#3b3c34;
+  --bezel:#25261f;
+  --bezel-lo:#14150f;
+  --plate:#928f78;
+  --glass:#020705;
+  --ph:#3dff88;
+  --hot:#eafff1;
+  --f-display:"Press Start 2P", "Courier New", ui-monospace, monospace;
+  --f-body:"IBM Plex Mono", ui-monospace, "Courier New", monospace;
+  --ph-70:color-mix(in srgb,var(--ph) 70%,transparent);
+  --ph-40:color-mix(in srgb,var(--ph) 40%,transparent);
+  --ph-15:color-mix(in srgb,var(--ph) 15%,transparent);
+  --ph-08:color-mix(in srgb,var(--ph) 8%,transparent);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse 80% 60% at 50% 0%,#1c1e17 0%,var(--room) 70%);background-color:var(--room);color:var(--ph);font-family:var(--f-body)}
+
+/* ---------- пролог ---------- */
+#intro{position:fixed;inset:0;z-index:100;background:#000;color:var(--ph);text-shadow:0 0 8px var(--ph-40),0 0 1px var(--ph-70);overflow:hidden;transition:opacity 1.2s}
+#intro.fade{opacity:0;pointer-events:none}
+#icv{position:absolute;inset:0;width:100%;height:100%}
+.iscan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(0,0,0,.35) 0 1px,transparent 1px 3px),radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.8) 100%)}
+.ilayer{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;
+  padding-top:max(20px,env(safe-area-inset-top,0px));padding-bottom:max(20px,env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.itop{display:flex;justify-content:space-between;gap:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+.ibig{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:min(92vw,900px);text-align:center;font:clamp(13px,2.5vw,26px)/2 var(--f-display);white-space:pre-line;margin:0}
+.ibot{display:grid;gap:16px;max-width:900px}
+.icap{font-size:clamp(15px,1.9vw,19px);line-height:1.75;max-width:62ch;min-height:5.3em;margin:0;padding:14px 16px;background:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.5) 80%,transparent)}
+.inav{display:flex;flex-wrap:wrap;gap:10px}
+.ititle{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px}
+.ititle h1{font:clamp(30px,8vw,84px)/1.1 var(--f-display);margin:0 0 18px;letter-spacing:.04em}
+.ititle p{font-size:13px;letter-spacing:.2em;opacity:.75;margin:0 0 30px;line-height:1.8}
+
+/* ---------- монитор ---------- */
+.room{display:flex;justify-content:center;padding-block:24px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.monitor{width:100%;max-width:1180px}
+.bezel{background:linear-gradient(180deg,var(--bezel-hi),var(--bezel) 16%,var(--bezel-lo));border-radius:30px 30px 16px 16px;padding:clamp(8px,2.4vw,28px);box-shadow:0 40px 70px -25px #000,inset 0 2px 0 #4c4d42,inset 0 -3px 0 #0b0c07}
+.screen{position:relative;overflow:hidden;border-radius:26px/34px;min-height:640px;
+  background:radial-gradient(ellipse at 50% 45%,color-mix(in srgb,var(--ph) 6%,var(--glass)) 0%,var(--glass) 75%);
+  box-shadow:inset 0 0 0 2px #000,inset 0 0 100px rgba(0,0,0,.9);color:var(--ph);text-shadow:0 0 7px var(--ph-40),0 0 1px var(--ph-70);transition:filter .4s}
+.screen.off{filter:brightness(.5) saturate(.4)}
+.screen.jolt{animation:jolt .4s steps(4)}
+@keyframes jolt{25%{transform:translate(-4px,2px) skewX(-2deg)}50%{transform:translate(3px,-1px)}75%{transform:translate(-1px,0) skewX(1deg)}}
+.content{position:relative;z-index:1;padding:clamp(16px,3vw,34px);animation:flick 7s infinite steps(1)}
+.screen.desk-mode .content{padding:0}
+@keyframes flick{0%,100%{opacity:1}46%{opacity:.95}47%{opacity:1}71%{opacity:.97}72%{opacity:1}}
+#noise{position:absolute;inset:0;width:100%;height:100%;z-index:40;pointer-events:none;opacity:.06;image-rendering:pixelated;mix-blend-mode:screen}
+.screen.off #noise{opacity:.14}
+.scan{position:absolute;inset:0;z-index:41;pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(0,0,0,.28) 0 1px,transparent 1px 3px)}
+.scan::after{content:"";position:absolute;left:0;right:0;top:-140px;height:140px;background:linear-gradient(transparent,var(--ph-08),transparent);animation:roll 8s linear infinite}
+@keyframes roll{to{top:100%}}
+.vignette{position:absolute;inset:0;z-index:42;pointer-events:none;border-radius:inherit;background:radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.7) 100%),linear-gradient(135deg,rgba(255,255,255,.06),transparent 30%)}
+.flash{position:absolute;inset:0;z-index:43;pointer-events:none;background:var(--hot);opacity:0}
+.flash.go{animation:poweron .9s ease-out forwards}
+@keyframes poweron{0%{opacity:1;transform:scale(.02,.004)}30%{opacity:1;transform:scale(1,.006)}55%{opacity:.85;transform:scale(1,1)}100%{opacity:0;transform:scale(1,1)}}
+.chin{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 10px 2px;color:var(--plate);font:9px/1.4 var(--f-display);letter-spacing:.12em}
+.chin .grp{display:flex;align-items:center;gap:12px}
+.led{width:9px;height:9px;border-radius:50%;background:#3b130e;box-shadow:inset 0 1px 1px #000}
+.led.on{background:var(--ph);box-shadow:0 0 10px var(--ph)}
+.power{width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;color:var(--plate);font-size:16px;background:radial-gradient(circle at 40% 35%,#4a4b40,#1b1c16);box-shadow:0 3px 0 #0a0a06,inset 0 1px 0 #5c5d50}
+.power:focus-visible{outline:2px dashed var(--plate);outline-offset:3px}
+
+/* ---------- общие элементы ---------- */
+.tbtn{background:transparent;border:1px solid var(--ph-70);color:var(--ph);font:500 12px/1.2 var(--f-body);letter-spacing:.14em;text-transform:uppercase;padding:10px 14px;cursor:pointer;text-shadow:inherit}
+.tbtn:hover:not(:disabled){background:var(--ph);color:var(--glass);text-shadow:none}
+.tbtn.primary{background:var(--ph);color:var(--glass);text-shadow:none}
+.tbtn.primary:hover:not(:disabled){background:var(--hot)}
+.tbtn:disabled{opacity:.35;cursor:not-allowed}
+.tbtn:focus-visible,input:focus-visible,#disk:focus-visible,.ico:focus-visible{outline:2px dashed var(--ph);outline-offset:3px}
+@keyframes blink{50%{opacity:0}}
+input.term{background:transparent;border:1px solid var(--ph-70);color:var(--ph);font:500 18px var(--f-body);letter-spacing:.28em;text-transform:uppercase;padding:10px 12px;caret-color:var(--ph);text-shadow:inherit;min-width:0}
+input.term:focus{outline:none;box-shadow:0 0 0 1px var(--ph),0 0 18px var(--ph-15)}
+.shake{animation:shake .35s}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+.slipping{animation:slipfl .14s steps(2) infinite}
+@keyframes slipfl{50%{opacity:.35;letter-spacing:.12em}}
+
+/* загрузка */
+.bootlines{font-size:15px;line-height:1.85;white-space:pre-wrap;max-width:72ch}
+.bootlines div{min-height:1.85em}
+.callform{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+.callform label{font-size:15px}
+.loadbar{margin-top:14px;width:min(420px,100%);height:16px;border:1px solid var(--ph-70);padding:2px}
+.loadbar i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,var(--ph) 0 6px,transparent 6px 8px)}
+
+/* ---------- рабочий стол ---------- */
+.desk{position:relative;height:clamp(620px,80vh,800px);overflow:hidden;
+  background:radial-gradient(circle at 1px 1px,var(--ph-08) 1px,transparent 1.5px) 0 0/14px 14px}
+.wall{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;opacity:.08;font:clamp(18px,3.4vw,40px)/1.5 var(--f-display)}
+.wall small{display:block;font:500 12px var(--f-body);letter-spacing:.4em}
+.icons{position:absolute;inset:14px 14px 58px 14px;display:grid;grid-auto-flow:column;grid-template-rows:repeat(5,auto);justify-content:start;align-content:start;gap:4px 8px}
+.ico{width:100px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 4px;background:none;border:1px dashed transparent;color:var(--ph);font:500 11px/1.3 var(--f-body);letter-spacing:.06em;cursor:pointer;text-shadow:inherit;text-align:center;word-break:break-all}
+.ico svg{width:42px;height:42px;overflow:visible}
+.ico.sel{border-color:var(--ph-70);background:var(--ph-08)}
+.ico .sub{font-size:9px;letter-spacing:.14em;opacity:.7}
+.ico.big{position:absolute;right:6px;top:6px;width:170px}
+.ico.big svg{width:96px;height:96px;animation:vglitch 3.2s steps(1) infinite}
+.ico.big .nm{font:11px/1.5 var(--f-display)}
+@keyframes vglitch{0%,100%{transform:none;filter:none}62%{transform:translate(-3px,0) skewX(-8deg);filter:drop-shadow(3px 0 rgba(255,70,70,.6))}64%{transform:translate(2px,1px)}66%{transform:none}88%{transform:translate(1px,-2px) skewX(5deg)}89%{transform:none}}
+.ico svg .s{fill:none;stroke:currentColor;stroke-width:2}
+.ico svg .f{fill:currentColor}
+.ico svg .d{fill:var(--glass);stroke:currentColor;stroke-width:2}
+.ico .lock{display:none}
+.ico.locked .lock{display:inline}
+.ico.locked .nm{opacity:.75}
+.ico.ping{animation:ping .5s steps(1) 6}
+@keyframes ping{50%{background:var(--ph);color:var(--glass);text-shadow:none}}
+
+.task{position:absolute;left:0;right:0;bottom:0;height:46px;z-index:30;display:flex;align-items:center;gap:6px;padding:0 10px;border-top:1px solid var(--ph-70);background:color-mix(in srgb,var(--ph) 7%,var(--glass))}
+.task .os{font:9px/1 var(--f-display);margin-right:6px;white-space:nowrap}
+.task .tbs{display:flex;gap:6px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.tb{background:transparent;border:1px solid var(--ph-40);color:var(--ph);font:500 11px var(--f-body);letter-spacing:.1em;padding:6px 10px;cursor:pointer;white-space:nowrap;text-shadow:inherit}
+.tb.active{background:var(--ph-15);border-color:var(--ph)}
+.tb.new{animation:pulse 1s steps(1) infinite}
+@keyframes pulse{50%{background:var(--ph);color:var(--glass);text-shadow:none}}
+.task .clk{font-variant-numeric:tabular-nums;font-size:13px;letter-spacing:.1em;white-space:nowrap}
+
+/* окна */
+.win{position:absolute;z-index:10;display:flex;flex-direction:column;background:var(--glass);border:1px solid var(--ph-70);max-height:calc(100% - 64px);min-width:260px;box-shadow:0 0 0 1px #000,8px 8px 0 rgba(0,0,0,.65),0 0 30px var(--ph-08)}
+.win.focus{border-color:var(--ph)}
+.win.opening{animation:wopen .2s steps(5)}
+@keyframes wopen{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+.wtitle{display:flex;align-items:center;gap:8px;padding:5px 5px 5px 10px;background:var(--ph-15);border-bottom:1px solid var(--ph-70);cursor:move;user-select:none;touch-action:none;font:500 12px var(--f-body);letter-spacing:.14em}
+.win.focus .wtitle{background:var(--ph);color:var(--glass);text-shadow:none}
+.wtitle span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wbtn{width:26px;height:24px;border:1px solid currentColor;background:transparent;color:inherit;font:14px/1 var(--f-body);cursor:pointer;padding:0}
+.wbody{overflow:auto;padding:16px;min-height:0;flex:1;container-type:inline-size}
+.desk.narrow .icons{inset:10px 10px 56px 10px;grid-auto-flow:row;grid-template-rows:none;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));overflow:auto}
+.desk.narrow .ico{width:auto}
+.desk.narrow .ico.big{position:static;grid-column:1/-1;width:auto;flex-direction:row;justify-content:center;gap:14px}
+.desk.narrow .ico.big svg{width:64px;height:64px}
+.desk.narrow .win{left:6px!important;right:6px;top:6px!important;bottom:52px;width:auto!important;max-height:none}
+.desk.narrow .wtitle{cursor:default}
+
+/* ЭХО */
+.elog{font-size:14px;line-height:1.65;display:grid;gap:6px}
+.eline .who{opacity:.7;margin-right:6px}
+.eline:not(:last-child){opacity:.6}
+.eline:last-child .t::after,.lvlecho .t::after{content:"█";margin-left:3px;animation:blink 1s steps(1) infinite}
+
+/* уровень */
+.lvlbar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.8;border-bottom:1px solid var(--ph-40);padding-bottom:10px;margin-bottom:6px}
+.lvlbar .clock{font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:26px}
+@container (max-width:640px){.grid{grid-template-columns:1fr}}
+.msgtext{font-size:clamp(15px,1.7vw,19px);line-height:1.8;letter-spacing:.08em;word-spacing:.25em;margin:14px 0 22px;min-height:9em}
+.w{white-space:nowrap;display:inline-block}
+.l{cursor:crosshair}
+.l:hover,.l.hl{background:var(--ph-15);color:var(--hot)}
+.msg.clear .msgtext{color:var(--hot)}
+.msg.clear .code{color:var(--glass);background:var(--ph);text-shadow:none;animation:codeblink .5s steps(1) 6}
+@keyframes codeblink{50%{background:transparent;color:var(--ph)}}
+.msgtext.glitch{animation:glitch .7s steps(7)}
+@keyframes glitch{0%{transform:none}15%{transform:translate(-4px,1px) skewX(-10deg);text-shadow:-3px 0 rgba(255,70,70,.7),3px 0 rgba(70,160,255,.7);filter:blur(.6px)}35%{transform:translate(4px,-1px) skewX(7deg);clip-path:inset(10% 0 35% 0)}55%{transform:translate(-2px,0);clip-path:inset(45% 0 5% 0);text-shadow:2px 0 rgba(255,70,70,.6),-2px 0 rgba(70,160,255,.6)}75%{transform:translate(1px,1px);clip-path:none}100%{transform:none}}
+.codeform{display:flex;flex-wrap:wrap;gap:10px}
+.codeform label{flex-basis:100%;font-size:12px;letter-spacing:.16em;opacity:.8}
+.codeform input{flex:1 1 170px}
+.errline{font-size:13px;min-height:1.4em;margin-top:8px;letter-spacing:.06em}
+.errline.on{background:var(--ph);color:var(--glass);text-shadow:none;display:inline-block;padding:2px 8px}
+.tool{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:0}
+.tooltitle{font-size:12px;letter-spacing:.16em;text-transform:uppercase;align-self:stretch;display:flex;justify-content:space-between;gap:10px}
+#disk{width:100%;max-width:320px;aspect-ratio:1;touch-action:none;cursor:grab;user-select:none;filter:drop-shadow(0 0 4px var(--ph-40))}
+#disk.grab{cursor:grabbing}
+#disk .ring{fill:none;stroke:var(--ph-40)}
+#disk .band{fill:var(--ph-08);stroke:var(--ph-70)}
+#disk .tick{stroke:var(--ph-15)}
+#disk .o{fill:var(--ph-70);font:500 15px var(--f-body)}
+#disk .in{fill:var(--ph);font:700 15px var(--f-body)}
+#disk .hl{fill:var(--hot);font-size:19px}
+#disk .win2{fill:var(--ph-15);stroke:var(--ph);stroke-width:1.5}
+#disk .hub{fill:var(--glass);stroke:var(--ph-70)}
+#disk .hubl{fill:var(--ph-70);font:500 9px var(--f-body);letter-spacing:.2em}
+#disk .hubn{fill:var(--ph);font:20px var(--f-display)}
+#disk .notch{fill:var(--ph)}
+#inner{transition:transform .18s ease-out}
+.diskctl{display:flex;gap:12px}
+.meter{width:100%;max-width:320px}
+.meterrow{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.16em;margin-bottom:6px;font-variant-numeric:tabular-nums}
+.scope{display:block;width:100%;height:90px;border:1px solid var(--ph-70);background:var(--ph-08)}
+.legend{font-size:11px;line-height:1.6;opacity:.7;max-width:320px;text-align:center}
+.lvlfoot{margin-top:20px;border-top:1px solid var(--ph-40);padding-top:12px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center}
+@container (max-width:520px){.lvlfoot{grid-template-columns:1fr}}
+.lvlecho{font-size:13px;line-height:1.6;min-height:3.2em}
+.lvlecho .who{opacity:.7;margin-right:6px}
+.hintbox{display:grid;gap:8px;margin-top:12px}
+.hint{border:1px dashed var(--ph-40);padding:10px 12px;font-size:13px;line-height:1.6}
+.hint b{letter-spacing:.14em;margin-right:8px}
+.hint .tbtn{margin-top:8px}
+.result{border:1px solid var(--ph);padding:16px;margin-top:18px;display:grid;gap:14px}
+.stamp{font:13px/1.5 var(--f-display);background:var(--ph);color:var(--glass);text-shadow:none;padding:8px 12px;justify-self:start;transform:rotate(-2deg)}
+.stats{display:flex;flex-wrap:wrap;gap:12px 26px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.stats b{display:block;font-size:19px;letter-spacing:.06em;font-variant-numeric:tabular-nums;margin-top:4px}
+.result p,.note{margin:0;font-size:14px;line-height:1.65;max-width:66ch}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+
+/* лекция и архив */
+.otitle{font:clamp(12px,1.8vw,17px)/1.6 var(--f-display);margin:0 0 14px;text-wrap:balance}
+.lecbody p,.arcbody p{max-width:66ch;font-size:15px;line-height:1.75;margin:0 0 12px}
+.lecnav{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;align-items:center}
+.lecnav .sp{flex:1}
+.lecnum{font-size:12px;letter-spacing:.16em}
+.demo{border:1px solid var(--ph-15);padding:14px}
+.demo .cap{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-bottom:10px}
+.strip{overflow-x:auto;padding-bottom:6px}
+.strip .row{display:flex;gap:2px;width:max-content;flex-wrap:nowrap}
+.col{display:flex;flex-direction:column;align-items:center;min-width:22px;border:1px solid var(--ph-15)}
+.col span{padding:3px 0;font-size:13px;width:100%;text-align:center}
+.col span+span{border-top:1px solid var(--ph-15);color:var(--hot)}
+.col:hover,.col.hl{background:var(--ph-15);border-color:var(--ph)}
+.ex{margin-top:12px;font-size:15px;letter-spacing:.14em}
+.ex b{color:var(--hot)}
+.freq{display:grid;gap:5px;max-width:460px}
+.fr{display:grid;grid-template-columns:18px minmax(0,1fr) 54px;gap:10px;align-items:center;font-size:13px;font-variant-numeric:tabular-nums}
+.fr i{display:block;height:10px;background:var(--ph)}
+.arch{display:grid;grid-template-columns:200px minmax(0,1fr);gap:22px}
+@container (max-width:600px){.arch{grid-template-columns:1fr}}
+.arlist{display:grid;gap:8px;align-content:start}
+.arlist .tbtn{text-align:left;line-height:1.5;font-size:11px}
+.arlist .tbtn.sel{background:var(--ph-15)}
+.arcbody h4{font:11px/1.6 var(--f-display);margin:22px 0 10px}
+
+/* журнал, корзина, вера, пароль */
+.logtab{display:grid;gap:10px;font-size:14px;line-height:1.65}
+.logtab div{display:grid;grid-template-columns:62px minmax(0,1fr);gap:12px}
+.logtab b{font-variant-numeric:tabular-nums;font-weight:500}
+.logtab .torn{opacity:.55}
+.loghead{font-size:12px;letter-spacing:.16em;margin-bottom:14px;opacity:.85}
+.trash{display:grid;gap:8px}
+.trash .tbtn{text-align:left;text-transform:none;letter-spacing:.04em;font-size:13px}
+.paper{border:1px dashed var(--ph-40);padding:14px;font-size:14px;line-height:1.75;margin-top:6px;max-width:62ch}
+.paper small{display:block;opacity:.6;font-size:11px;letter-spacing:.14em;margin-bottom:8px}
+.vhead{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:12px;letter-spacing:.16em;margin-bottom:12px}
+.vstat{background:var(--ph);color:var(--glass);text-shadow:none;padding:3px 8px;animation:blink 1.4s steps(1) infinite}
+.dump{font:12px/1.55 var(--f-body);margin:0 0 14px;padding:10px;border:1px solid var(--ph-15);overflow:hidden;white-space:pre;opacity:.85}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:14px}
+.slot{border:1px dashed var(--ph-40);padding:10px;font-size:11px;letter-spacing:.1em;line-height:1.7}
+.slot b{display:block;font:12px/1.6 var(--f-display);margin:4px 0}
+.slot.on{border-style:solid;border-color:var(--ph);background:var(--ph-08)}
+.passw{display:grid;gap:12px;font-size:14px;line-height:1.6}
+.passw form{display:flex;flex-wrap:wrap;gap:10px}
+.passw input{flex:1 1 160px}
+.stubw{display:grid;gap:12px;font-size:14px;line-height:1.7}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<!-- ================= ПРОЛОГ ================= -->
+<div id="intro">
+  <canvas id="icv"></canvas>
+  <div class="iscan"></div>
+  <div class="ititle" id="ititle">
+    <div>
+      <h1>ЭХО-7</h1>
+      <p>ИГРА-КВЕСТ О ШИФРАХ · 5 ПЕРЕХВАТОВ · 1 ТАЙНА<br>ЛУЧШЕ В НАУШНИКАХ</p>
+      <div class="inav" style="justify-content:center">
+        <button class="tbtn primary" id="iStart" type="button">НАЧАТЬ</button>
+        <button class="tbtn" id="iSkip0" type="button">БЕЗ ПРОЛОГА</button>
+      </div>
+    </div>
+  </div>
+  <p class="ibig" id="ibig" hidden></p>
+  <div class="ilayer" id="ilayer" hidden>
+    <div class="itop"><span id="itop"></span><span id="istep"></span></div>
+    <div class="ibot">
+      <p class="icap" id="icap"></p>
+      <div class="inav">
+        <button class="tbtn primary" id="iNext" type="button">ДАЛЕЕ ▶</button>
+        <button class="tbtn" id="iSkip" type="button">ПРОПУСТИТЬ ПРОЛОГ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= МОНИТОР ================= -->
+<div class="room">
+  <div class="monitor">
+    <div class="bezel">
+      <div class="screen off" id="screen">
+        <div class="content">
+          <section id="vOff" style="min-height:600px"></section>
+
+          <section id="vBoot" hidden>
+            <div class="bootlines" id="bootLines"></div>
+            <form class="callform" id="callForm" hidden autocomplete="off">
+              <label for="callInput">ВВЕДИТЕ ПОЗЫВНОЙ:</label>
+              <input class="term" id="callInput" maxlength="14" placeholder="ЧАЙКА" style="flex:0 1 240px">
+              <button class="tbtn primary" type="submit">ВВОД</button>
+            </form>
+            <div class="loadbar" id="loadBar" hidden><i id="loadFill"></i></div>
+          </section>
+
+          <section id="vDesk" hidden>
+            <div class="desk" id="desk">
+              <div class="wall">ВЕГА-ОС<small>СТАНЦИЯ ЭХО-7 · ТЕРМИНАЛ 03</small></div>
+
+              <div class="icons" id="icons">
+                <button class="ico" type="button" data-open="f1"><svg viewBox="0 0 48 48"><path class="d" d="M10 4h20l10 10v30H10z"/><path class="s" d="M30 4v10h10"/><path class="s" d="M16 24h16M16 30h16M16 36h10"/></svg><span class="nm">ФАЙЛ_01.ENC</span></button>
+                <button class="ico locked" type="button" data-open="f2"><svg viewBox="0 0 48 48"><path class="d" d="M10 4h20l10 10v30H10z"/><path class="s" d="M30 4v10h10"/><g class="lock"><rect class="d" x="24" y="28" width="20" height="16"/><path class="s" d="M28 28v-5a6 6 0 0 1 12 0v5"/><rect class="f" x="32" y="33" width="4" height="6"/></g></svg><span class="nm">ФАЙЛ_02.ENC</span></button>
+                <button class="ico locked" type="button" data-open="f3"><svg viewBox="0 0 48 48"><path class="d" d="M10 4h20l10 10v30H10z"/><path class="s" d="M30 4v10h10"/><g class="lock"><rect class="d" x="24" y="28" width="20" height="16"/><path class="s" d="M28 28v-5a6 6 0 0 1 12 0v5"/><rect class="f" x="32" y="33" width="4" height="6"/></g></svg><span class="nm">ФАЙЛ_03.ENC</span></button>
+                <button class="ico locked" type="button" data-open="f4"><svg viewBox="0 0 48 48"><path class="d" d="M10 4h20l10 10v30H10z"/><path class="s" d="M30 4v10h10"/><g class="lock"><rect class="d" x="24" y="28" width="20" height="16"/><path class="s" d="M28 28v-5a6 6 0 0 1 12 0v5"/><rect class="f" x="32" y="33" width="4" height="6"/></g></svg><span class="nm">ФАЙЛ_04.ENC</span></button>
+                <button class="ico locked" type="button" data-open="f5"><svg viewBox="0 0 48 48"><path class="d" d="M10 4h20l10 10v30H10z"/><path class="s" d="M30 4v10h10"/><g class="lock"><rect class="d" x="24" y="28" width="20" height="16"/><path class="s" d="M28 28v-5a6 6 0 0 1 12 0v5"/><rect class="f" x="32" y="33" width="4" height="6"/></g></svg><span class="nm">ФАЙЛ_05.ENC</span></button>
+                <button class="ico" type="button" data-open="echo"><svg viewBox="0 0 48 48"><rect class="d" x="4" y="8" width="40" height="30"/><path class="s" d="M10 16l6 5-6 5M20 28h10"/><path class="s" d="M16 44h16M24 38v6"/></svg><span class="nm">ЭХО.EXE</span></button>
+                <button class="ico" type="button" data-open="arc"><svg viewBox="0 0 48 48"><path class="d" d="M4 12h14l4 4h22v26H4z"/><path class="s" d="M4 20h40"/></svg><span class="nm">АРХИВ</span></button>
+                <button class="ico" type="button" data-open="log"><svg viewBox="0 0 48 48"><rect class="d" x="8" y="4" width="32" height="40"/><path class="s" d="M14 4v40M20 14h14M20 20h14M20 26h10"/></svg><span class="nm">ЖУРНАЛ.TXT</span></button>
+                <button class="ico" type="button" data-open="trash"><svg viewBox="0 0 48 48"><path class="d" d="M10 14h28l-3 30H13z"/><path class="s" d="M6 14h36M18 14V8h12v6M19 22v16M29 22v16"/></svg><span class="nm">КОРЗИНА</span><span class="sub">2 ФАЙЛА</span></button>
+                <button class="ico big" type="button" data-open="vera"><svg viewBox="0 0 48 48"><path class="d" d="M10 4h20l10 10v30H10z"/><path class="s" d="M30 4v10h10"/><path class="s" d="M14 22h8M25 22h6M14 28h4M21 28h12M14 34h10M28 34h4"/><path class="f" d="M33 18h4v3h-4zM16 38h3v3h-3zM35 30h3v2h-3z"/></svg><span class="nm">ВЕРА.SYS</span><span class="sub" id="veraSub">ПОВРЕЖДЁН · 0/5</span></button>
+              </div>
+
+              <!-- ЭХО -->
+              <div class="win" id="w-echo" data-id="echo" hidden>
+                <div class="wtitle"><span>ЭХО.EXE · СВЯЗЬ</span><button class="wbtn" type="button" data-close aria-label="Закрыть">×</button></div>
+                <div class="wbody"><div class="elog" id="elog"></div></div>
+              </div>
+
+              <!-- ФАЙЛ 1 -->
+              <div class="win" id="w-f1" data-id="f1" hidden>
+                <div class="wtitle"><span>ФАЙЛ_01.ENC · СДВИГ</span><button class="wbtn" type="button" data-close aria-label="Закрыть">×</button></div>
+                <div class="wbody">
+                  <div class="lvlbar"><span>ПЕРЕХВАТ 12.03.1987 · 03:14 · ОТ: ВЕРА С.</span><span class="clock" id="lvlClock">00:00</span></div>
+                  <div class="grid">
+                    <section class="msg" id="msg">
+                      <div class="msgtext" id="msgText" aria-live="polite"></div>
+                      <form class="codeform" id="codeForm" autocomplete="off">
+                        <label for="codeInput">ФРАГМЕНТ · КОДОВОЕ СЛОВО</label>
+                        <input class="term" id="codeInput" maxlength="20" placeholder="______">
+                        <button class="tbtn primary" type="submit">ЗАПИСАТЬ</button>
+                      </form>
+                      <div class="errline" id="errLine"></div>
+                      <div id="resultBox"></div>
+                    </section>
+                    <section class="tool">
+                      <div class="tooltitle"><span>ШИФРОВАЛЬНЫЙ ДИСК</span><span>ТЯНИ ИЛИ ← →</span></div>
+                      <svg id="disk" viewBox="0 0 320 320" tabindex="0" role="slider" aria-label="Сдвиг внутреннего кольца" aria-valuemin="0" aria-valuemax="32" aria-valuenow="0"></svg>
+                      <div class="diskctl">
+                        <button class="tbtn" id="ccw" type="button" aria-label="Повернуть против часовой">◀</button>
+                        <button class="tbtn" id="cw" type="button" aria-label="Повернуть по часовой">▶</button>
+                      </div>
+                      <div class="meter">
+                        <div class="meterrow"><span>СИГНАЛ</span><span id="sigNum">0%</span></div>
+                        <canvas class="scope" id="scope" aria-hidden="true"></canvas>
+                      </div>
+                      <div class="legend">Внешнее кольцо: буквы из шифровки. Внутреннее: какими они были. Наведи на букву в сообщении, и диск покажет её пару.</div>
+                    </section>
+                  </div>
+                  <div class="lvlfoot">
+                    <div class="lvlecho"><span class="who">ЭХО&gt;</span><span class="t" id="lvlEchoT"></span></div>
+                    <button class="tbtn" id="hintBtn" type="button">ПОДСКАЗКА 0/3</button>
+                  </div>
+                  <div class="hintbox" id="hintBox"></div>
+                </div>
+              </div>
+
+              <!-- ЛЕКЦИЯ -->
+              <div class="win" id="w-lec" data-id="lec" hidden>
+                <div class="wtitle"><span>ЛЕКЦИЯ ЭХО · ШИФР СДВИГА</span><button class="wbtn" type="button" data-close aria-label="Закрыть">×</button></div>
+                <div class="wbody">
+                  <h2 class="otitle" id="lecTitle"></h2>
+                  <div class="lecbody" id="lecBody"></div>
+                  <div id="lecDemo"></div>
+                  <div class="lecnav">
+                    <button class="tbtn" id="lecPrev" type="button">◀ НАЗАД</button>
+                    <button class="tbtn primary" id="lecNext" type="button">ДАЛЕЕ ▶</button>
+                    <span class="sp"></span>
+                    <span class="lecnum" id="lecNum">1/4</span>
+                    <button class="tbtn" id="lecSkip" type="button">ПРОПУСТИТЬ</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- АРХИВ -->
+              <div class="win" id="w-arc" data-id="arc" hidden>
+                <div class="wtitle"><span>АРХИВ · ЗАПИСИ О ШИФРАХ</span><button class="wbtn" type="button" data-close aria-label="Закрыть">×</button></div>
+                <div class="wbody"><div class="arch"><div class="arlist" id="arList"></div><div class="arcbody" id="arBody"></div></div></div>
+              </div>
+
+              <!-- ЖУРНАЛ -->
+              <div class="win" id="w-log" data-id="log" hidden>
+                <div class="wtitle"><span>ЖУРНАЛ.TXT</span><button class="wbtn" type="button" data-close aria-label="Закрыть">×</button></div>
+                <div class="wbody">
+                  <div class="loghead">ЖУРНАЛ ДЕЖУРСТВ · СТАНЦИЯ ЭХО-7 · МАРТ 1987</div>
+                  <div class="logtab">
+                    <div><b>02.03</b><span>Смена: Соколова В. Эфир по расписанию. Замечаний нет.</span></div>
+                    <div><b>05.03</b><span>Приезжал Г. из управления. Спрашивал архив передач Соколовой. Архив не выдан.</span></div>
+                    <div><b>09.03</b><span>21:10. Соколова вышла в эфир вне расписания. Причину не объяснила.</span></div>
+                    <div><b>11.03</b><span>22:30. Снова внеплановая передача. Написан рапорт.</span></div>
+                    <div><b>12.03</b><span>03:14. Внеплановая передача. Соколова зашифровала перехваты и не сдала ключи.</span></div>
+                    <div><b>13.03</b><span>23:05. Внеплановая передача. Из управления сообщили: в понедельник станцию закрывают.</span></div>
+                    <div><b>14.03</b><span>02:40. Последняя передача, сильные помехи. 02:51 последний вход в терминал. Утром Соколова на смену не вышла.</span></div>
+                    <div class="torn"><b>16.03</b><span>Станция выведена из эксплуатации. Терминал отключить не удалось.</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- КОРЗИНА -->
+              <div class="win" id="w-trash" data-id="trash" hidden>
+                <div class="wtitle"><span>КОРЗИНА · 2 ФАЙЛА</span><button class="wbtn" type="button" data-close aria-label="Закрыть">×</button></div>
+                <div class="wbody">
+                  <div class="trash">
+                    <button class="tbtn" type="button" data-paper="p1">черновик_пароль.txt · удалён 14.03.1987 02:49</button>
+                    <button class="tbtn" type="button" data-paper="p2">г.txt · удалён 13.03.1987 23:40</button>
+                  </div>
+                  <div class="paper" id="p1" hidden><small>ЧЕРНОВИК_ПАРОЛЬ.TXT · ВОССТАНОВЛЕН</small>Пароль к ВЕРА.SYS — пять слов, по одному из каждого перехвата. Номера файлов я перепутала нарочно, не верь им. Слова идут в том порядке, в каком перехваты ушли в эфир. Самый ранний первым.</div>
+                  <div class="paper" id="p2" hidden><small>Г.TXT · ВОССТАНОВЛЕН</small>Г. снова спрашивал про архив. Сказала, что ключи сданы. Если в понедельник меня здесь не будет, ЭХО продолжит передавать. Кто-нибудь услышит.</div>
+                </div>
+              </div>
+
+              <!-- ВЕРА.SYS -->
+              <div class="win" id="w-vera" data-id="vera" hidden>
+                <div class="wtitle"><span>ВЕРА.SYS</span><button class="wbtn" type="button" data-close aria-label="Закрыть">×</button></div>
+                <div class="wbody">
+                  <div class="vhead"><span class="vstat">ФАЙЛ ПОВРЕЖДЁН</span><span id="vCount">ФРАГМЕНТЫ 0/5</span></div>
+                  <pre class="dump" id="dump"></pre>
+                  <div class="slots" id="slots"></div>
+                  <p class="note">Для восстановления нужен пароль из пяти фрагментов, расставленных в правильном порядке.</p>
+                  <div class="row" style="margin-top:12px"><button class="tbtn primary" type="button" id="veraFix" disabled>ВОССТАНОВИТЬ · НУЖНО 5/5</button></div>
+                </div>
+              </div>
+
+              <!-- ПАРОЛЬ -->
+              <div class="win" id="w-pass" data-id="pass" hidden>
+                <div class="wtitle"><span id="passTitle">ЗАЩИТА</span><button class="wbtn" type="button" data-close aria-label="Закрыть">×</button></div>
+                <div class="wbody">
+                  <div class="passw">
+                    <div id="passText"></div>
+                    <form id="passForm" autocomplete="off"><input class="term" id="passInput" maxlength="20" aria-label="Пароль"><button class="tbtn primary" type="submit">ОТКРЫТЬ</button></form>
+                    <div class="errline" id="passErr"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ЗАГЛУШКА -->
+              <div class="win" id="w-stub" data-id="stub" hidden>
+                <div class="wtitle"><span id="stubTitle">ФАЙЛ</span><button class="wbtn" type="button" data-close aria-label="Закрыть">×</button></div>
+                <div class="wbody"><div class="stubw" id="stubBody"></div></div>
+              </div>
+
+              <div class="task">
+                <span class="os">ВЕГА-ОС</span>
+                <button class="tb" id="tbEcho" type="button">ЭХО</button>
+                <div class="tbs" id="tbs"></div>
+                <span class="clk" id="clk">03:52</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <canvas id="noise"></canvas>
+        <div class="scan"></div>
+        <div class="vignette"></div>
+        <div class="flash" id="flash"></div>
+      </div>
+      <div class="chin">
+        <div class="grp"><span class="led" id="led"></span><span>ЭХО-7 · ТЕРМИНАЛ 03</span></div>
+        <div class="grp"><span>ПИТ.</span><button class="power" id="power" type="button" aria-label="Питание">⏻</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const wait = ms => new Promise(r => setTimeout(r, reduced ? 0 : ms));
+
+/* ================= ШИФР ================= */
+const A = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ', N = A.length, LAT = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const mod = (a, n) => ((a % n) + n) % n;
+const sh = (ch, k, al = A) => { const i = al.indexOf(ch); return i < 0 ? ch : al[mod(i + k, al.length)]; };
+const shStr = (s, k, al = A) => [...s].map(c => sh(c, k, al)).join('');
+const norm = s => s.toUpperCase().replace(/Ё/g, 'Е').replace(/[^А-ЯA-Z]/g, '');
+
+const LEVEL = { key: 7, code: 'МАЯК',
+  plain: 'ЕСЛИ ТЫ ЧИТАЕШЬ ЭТО, ЗНАЧИТ МОЙ ТЕРМИНАЛ ЕЩЁ РАБОТАЕТ. Я НЕ МОГУ ПИСАТЬ ПРЯМО: ЗА СТАНЦИЕЙ СЛЕДЯТ. ВСЁ, ЧТО Я ЗНАЮ, В ФАЙЛЕ ВЕРА. КЛЮЧ ОТ СЛЕДУЮЩЕЙ ДВЕРИ: МАЯК. НЕ ДОВЕРЯЙ ТИШИНЕ. В.' };
+const CIPHER = shStr(LEVEL.plain, LEVEL.key);
+const FILES = {
+  1: { name: 'СДВИГ', date: '12.03.1987', time: '03:14' },
+  2: { name: 'СИГНАЛ', date: '09.03.1987', time: '21:10', desc: 'Внутри звуковая запись: короткие и длинные сигналы и мигающая лампа.', pass: 'МАЯК' },
+  3: { name: 'МАШИННЫЙ ЯЗЫК', date: '13.03.1987', time: '23:05', desc: 'Внутри строки из нулей и единиц.' },
+  4: { name: 'РЕШЁТКА', date: '11.03.1987', time: '22:30', desc: 'Внутри таблица букв. Без ключа она не читается.' },
+  5: { name: 'ШУМ', date: '??.03.1987', time: '??:??', desc: 'Внутри картинка из помех. Дата перехвата стёрта.' }
+};
+const FREQ = {О:10.97,Е:8.45,А:8.01,И:7.35,Н:6.70,Т:6.26,С:5.47,Р:4.73,В:4.54,Л:4.40,К:3.49,М:3.21,Д:2.98,П:2.81,У:2.62,Я:2.01,Ы:1.90,Ь:1.74,Г:1.70,З:1.65,Б:1.59,Ч:1.44,Й:1.21,Х:0.97,Ж:0.94,Ш:0.73,Ю:0.64,Ц:0.48,Щ:0.36,Э:0.32,Ф:0.26,Ъ:0.04,Ё:0.04};
+const cl = [...CIPHER].filter(c => A.includes(c)), raw = [];
+for (let s = 0; s < N; s++) raw.push(cl.reduce((t, c) => t + FREQ[sh(c, -s)], 0) / cl.length);
+const mn = Math.min(...raw), mx = Math.max(...raw), SIG = raw.map(v => (v - mn) / (mx - mn));
+
+/* ================= ЗВУК ================= */
+const S = { ctx: null, on: true };
+try { if (localStorage.getItem('echo7-sound') === 'off') S.on = false; } catch (e) {}
+function audioInit() {
+  if (S.ctx) { if (S.ctx.state === 'suspended') S.ctx.resume(); return; }
+  const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+  const c = S.ctx = new AC();
+  S.master = c.createGain(); S.master.gain.value = S.on ? 0.7 : 0; S.master.connect(c.destination);
+  const len = c.sampleRate * 2; S.buf = c.createBuffer(1, len, c.sampleRate);
+  const d = S.buf.getChannelData(0); for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+  const chain = (type, f, q) => { const src = c.createBufferSource(); src.buffer = S.buf; src.loop = true; const fl = c.createBiquadFilter(); fl.type = type; fl.frequency.value = f; fl.Q.value = q; const g = c.createGain(); g.gain.value = 0; src.connect(fl); fl.connect(g); g.connect(S.master); src.start(); return g; };
+  S.hiss = chain('bandpass', 2600, 0.5); S.sea = chain('lowpass', 420, 0.7);
+}
+function tone(f, dur, type = 'square', vol = 0.04, when = 0, f2) {
+  if (!S.ctx) return; const c = S.ctx, t = c.currentTime + when;
+  const o = c.createOscillator(), g = c.createGain(); o.type = type; o.frequency.setValueAtTime(f, t);
+  if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + 0.005); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g); g.connect(S.master); o.start(t); o.stop(t + dur + 0.02);
+}
+function beep(f, dur, when, vol = 0.05) {
+  if (!S.ctx) return; const c = S.ctx, t = c.currentTime + when, o = c.createOscillator(), g = c.createGain();
+  o.type = 'sine'; o.frequency.value = f; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + 0.006);
+  g.gain.setValueAtTime(vol, t + dur - 0.008); g.gain.linearRampToValueAtTime(0, t + dur);
+  o.connect(g); g.connect(S.master); o.start(t); o.stop(t + dur + 0.02);
+}
+function burst(dur = 0.03, freq = 3000, vol = 0.12) {
+  if (!S.ctx) return; const c = S.ctx, t = c.currentTime, src = c.createBufferSource(); src.buffer = S.buf;
+  const f = c.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = freq; const g = c.createGain();
+  g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  src.connect(f); f.connect(g); g.connect(S.master); src.start(t, Math.random()); src.stop(t + dur + 0.01);
+}
+const blip = () => {}; /* писк при печати текста отключён */
+const tick = () => { burst(0.025, 2500, 0.1); tone(220, 0.03, 'triangle', 0.05); };
+const chord = () => [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.35, 'triangle', 0.05, i * 0.09));
+const errSnd = () => { tone(190, 0.16, 'square', 0.05); tone(140, 0.22, 'square', 0.05, 0.13); };
+const boom = () => { tone(70, 0.6, 'sawtooth', 0.12, 0, 28); tone(9000, 0.5, 'sine', 0.012, 0.05, 15000); burst(0.25, 400, 0.15); };
+const openSnd = () => { tone(520, 0.05, 'square', 0.03); tone(780, 0.06, 'square', 0.03, 0.05); };
+const setHiss = v => { if (S.hiss) S.hiss.gain.setTargetAtTime(v, S.ctx.currentTime, 0.25); };
+const setSea = v => { if (S.sea) S.sea.gain.setTargetAtTime(v, S.ctx.currentTime, 0.6); };
+const MORSE = { Э: '..-..', Х: '....', О: '---', '7': '--...' };
+let morseTok = 0;
+function morseLoop(str) {
+  const tok = ++morseTok, dot = 0.075;
+  const play = () => {
+    if (tok !== morseTok || !S.ctx) return; let t = 0;
+    for (const ch of str) { if (ch === ' ') { t += dot * 6; continue; } for (const m of MORSE[ch]) { const d = m === '.' ? dot : dot * 3; beep(740, d, t); t += d + dot; } t += dot * 2; }
+    setTimeout(play, (t + 1.4) * 1000);
+  };
+  play();
+}
+const morseStop = () => morseTok++;
+
+/* ================= ПЕЧАТЬ ТЕКСТА ================= */
+/* {было>стало} = оговорка ЭХО: напечатать, замереть, стереть, исправить */
+const SLIP = /\{([^>}]*)>([^}]*)\}/g;
+function typeText(target, text, speed = 20, fast = () => false) {
+  const els = Array.isArray(target) ? target : [target], el = els[0];
+  const tok = el._tok = (el._tok || 0) + 1; el._skip = false;
+  const set = v => els.forEach(e => e.textContent = v); set('');
+  const final = text.replace(SLIP, '$2');
+  const ops = []; let last = 0, m; SLIP.lastIndex = 0;
+  while ((m = SLIP.exec(text))) {
+    for (const ch of text.slice(last, m.index)) ops.push(['+', ch]);
+    for (const ch of m[1]) ops.push(['+', ch]);
+    ops.push(['p', 750]); for (let k = 0; k < m[1].length; k++) ops.push(['-']);
+    for (const ch of m[2]) ops.push(['+', ch]);
+    last = SLIP.lastIndex;
+  }
+  for (const ch of text.slice(last)) ops.push(['+', ch]);
+  return new Promise(res => {
+    if (reduced) { set(final); return res(); }
+    let cur = '', i = 0;
+    const step = () => {
+      if (el._tok !== tok) return res();
+      if (el._skip || fast()) { set(final); els.forEach(e => e.classList.remove('slipping')); return res(); }
+      if (i >= ops.length) return res();
+      const op = ops[i++]; let delay = speed;
+      if (op[0] === '+') { cur += op[1]; if (op[1] !== ' ' && cur.length % 2 === 0) blip(); if (/[.:!?]/.test(op[1])) delay = speed * 9; }
+      else if (op[0] === '-') { cur = cur.slice(0, -1); delay = 28; if (i % 2) tone(260, 0.02, 'square', 0.015); els.forEach(e => e.classList.remove('slipping')); }
+      else { delay = op[1]; els.forEach(e => e.classList.add('slipping')); burst(0.08, 1500, 0.07); }
+      set(cur); setTimeout(step, delay);
+    };
+    step();
+  });
+}
+
+/* ================= ПРОЛОГ ================= */
+const intro = $('#intro'), icv = $('#icv'), ic = icv.getContext('2d');
+const B = document.createElement('canvas'); B.width = 320; B.height = 180; const b = B.getContext('2d');
+const PH = [61, 255, 136], g = a => `rgba(${PH[0]},${PH[1]},${PH[2]},${Math.max(0, Math.min(1, a))})`;
+const stars = Array.from({ length: 50 }, () => [Math.random() * 320 | 0, Math.random() * 92 | 0, Math.random()]);
+let scene = 'title', sceneT0 = 0, sigOn = false, introOn = true;
+function sizeIcv() { const d = Math.min(devicePixelRatio || 1, 2); icv.width = innerWidth * d; icv.height = innerHeight * d; }
+sizeIcv(); addEventListener('resize', sizeIcv);
+
+function noiseFill(a) { b.fillStyle = '#000'; b.fillRect(0, 0, 320, 180); for (let i = 0; i < 180; i++) { b.fillStyle = g(Math.random() * a); b.fillRect(Math.random() * 320 | 0, Math.random() * 180 | 0, 1, 1); } }
+function drawRadio(el) {
+  const img = b.getImageData(0, 0, 320, 147); b.putImageData(img, 0, 1);
+  for (let x = 0; x < 320; x++) {
+    let v = Math.pow(Math.random(), 4) * 0.5 + 0.03;
+    if (sigOn) { const dx = Math.abs(x - 198); if (dx < 2) v = 0.95; else if (dx < 7) v += 0.35 * (1 - dx / 7); }
+    b.fillStyle = '#000'; b.fillRect(x, 0, 1, 1); b.fillStyle = g(v); b.fillRect(x, 0, 1, 1);
+  }
+  b.fillStyle = '#000'; b.fillRect(0, 148, 320, 32);
+  b.strokeStyle = g(.85); b.lineWidth = 1; b.beginPath();
+  for (let x = 0; x < 320; x++) {
+    let v = Math.pow(Math.random(), 3) * 6;
+    if (sigOn) { const dx = Math.abs(x - 198); if (dx < 7) v += (7 - dx) * 3 * (0.85 + 0.15 * Math.sin(el * 22)); }
+    const y = 175 - v; x ? b.lineTo(x, y) : b.moveTo(x, y);
+  }
+  b.stroke(); for (let i = 0; i <= 10; i++) { b.fillStyle = g(.5); b.fillRect(i * 32, 177, 1, 3); }
+  b.fillStyle = g(.9); b.fillRect(197, 148, 3, 2);
+}
+function drawCoast(el) {
+  b.fillStyle = '#000'; b.fillRect(0, 0, 320, 180);
+  stars.forEach(([x, y, p]) => { b.fillStyle = g(0.12 + 0.25 * Math.abs(Math.sin(el * 1.3 + p * 10))); b.fillRect(x, y, 1, 1); });
+  for (let y = 120; y < 180; y += 4) {
+    const k = (y - 118) / 62; b.fillStyle = g(0.07 + 0.2 * k);
+    const off = (el * 7 * (0.4 + k)) % 13;
+    for (let x = off - 13 + (y % 8 ? 6 : 0); x < 320; x += 13) b.fillRect(x | 0, y, (3 + k * 6) | 0, 1);
+  }
+  const shape = (pts, a) => { b.beginPath(); pts.forEach(([x, y], i) => i ? b.lineTo(x, y) : b.moveTo(x, y)); b.closePath(); b.fillStyle = '#000'; b.fill(); b.strokeStyle = g(a); b.stroke(); };
+  shape([[0, 121], [0, 112], [55, 108], [150, 111], [192, 121]], .45);
+  shape([[204, 121], [222, 104], [250, 98], [320, 95], [320, 121]], .45);
+  // мачта
+  b.strokeStyle = g(.55); b.beginPath(); b.moveTo(32, 110); b.lineTo(40, 22); b.lineTo(48, 110);
+  for (let y = 30; y < 108; y += 9) { const w = (y - 22) / 88 * 8; b.moveTo(40 - w, y); b.lineTo(40 + w + 0.9, y + 9); }
+  b.stroke(); b.strokeStyle = g(.15); b.beginPath(); b.moveTo(40, 30); b.lineTo(8, 110); b.moveTo(40, 30); b.lineTo(78, 109); b.stroke();
+  if ((el % 1.8) < 0.5) { b.fillStyle = g(1); b.fillRect(39, 19, 3, 3); b.fillStyle = g(.25); b.fillRect(36, 16, 9, 9); }
+  // здание
+  b.fillStyle = '#000'; b.fillRect(70, 95, 50, 15); b.strokeStyle = g(.6); b.strokeRect(70.5, 95.5, 49, 14);
+  b.beginPath(); b.moveTo(68, 95.5); b.lineTo(95, 88); b.lineTo(122, 95.5); b.stroke();
+  b.fillStyle = g(0.8 + Math.sin(el * 9) * 0.08); b.fillRect(102, 99, 7, 5);
+  b.fillStyle = g(.08); b.fillRect(98, 110, 15, 10);
+  // маяк
+  b.fillStyle = g(.5); b.beginPath(); b.moveTo(266, 98); b.lineTo(278, 98); b.lineTo(276, 62); b.lineTo(268, 62); b.fill();
+  b.fillStyle = '#000'; for (let y = 70; y < 98; y += 8) b.fillRect(266, y, 12, 2);
+  b.strokeStyle = g(.7); b.strokeRect(266.5, 55.5, 11, 7); b.beginPath(); b.moveTo(265, 55.5); b.lineTo(272, 50); b.lineTo(279, 55.5); b.stroke();
+  const dir = Math.cos(el * 0.75), len = Math.abs(dir) * 300, s = Math.sign(dir) || 1;
+  b.save(); b.globalCompositeOperation = 'lighter';
+  b.fillStyle = g(.11); b.beginPath(); b.moveTo(272, 59); b.lineTo(272 + s * len, 52 - Math.abs(dir) * 8); b.lineTo(272 + s * len, 66 + Math.abs(dir) * 14); b.fill();
+  if (Math.abs(dir) < 0.2) { const k = 1 - Math.abs(dir) / 0.2; b.fillStyle = g(.5 * k); b.beginPath(); b.arc(272, 59, 4 + 14 * k, 0, 7); b.fill(); }
+  b.fillStyle = g(.95); b.fillRect(270, 57, 4, 3);
+  b.restore();
+}
+function drawRoom(el) {
+  b.fillStyle = '#000'; b.fillRect(0, 0, 320, 180);
+  const gr = b.createRadialGradient(160, 92, 4, 160, 92, 130); gr.addColorStop(0, g(.16 + 0.03 * Math.sin(el * 3))); gr.addColorStop(1, g(0));
+  b.fillStyle = gr; b.fillRect(0, 0, 320, 180);
+  b.fillStyle = g(.06); b.fillRect(0, 128, 320, 52); b.fillStyle = g(.3); b.fillRect(0, 128, 320, 1);
+  b.fillStyle = '#000'; b.fillRect(118, 60, 84, 66); b.strokeStyle = g(.4); b.strokeRect(118.5, 60.5, 83, 65);
+  b.fillStyle = '#000'; b.fillRect(146, 126, 28, 3); b.strokeRect(146.5, 126, 27, 2);
+  b.fillStyle = g(.1 + 0.04 * Math.sin(el * 3)); b.fillRect(125, 66, 70, 50);
+  for (let y = 66; y < 116; y += 2) { b.fillStyle = 'rgba(0,0,0,.35)'; b.fillRect(125, y, 70, 1); }
+  b.fillStyle = g(.45); [[130, 72, 30], [130, 78, 44], [130, 84, 22]].forEach(([x, y, w]) => b.fillRect(x, y, w, 2));
+  if ((el % 1) < 0.5) { b.fillStyle = g(1); b.fillRect(130, 92, 4, 6); }
+  b.strokeStyle = g(.22); b.beginPath(); b.moveTo(122, 142); b.lineTo(198, 142); b.lineTo(204, 150); b.lineTo(116, 150); b.closePath(); b.stroke();
+  b.fillStyle = g(.08); b.fillRect(236, 96, 30, 32); b.strokeStyle = g(.25); b.strokeRect(236.5, 96.5, 29, 31);
+  b.fillStyle = g(.5); b.fillRect(243, 104, 4, 4); b.fillRect(253, 104, 4, 4); b.fillStyle = g((el % 2) < 1 ? .9 : .2); b.fillRect(259, 120, 2, 2);
+}
+function blit(zoom, cy) {
+  const cw = icv.width, ch = icv.height; ic.imageSmoothingEnabled = false;
+  const s = Math.max(cw / 320, ch / 180) * zoom, w = 320 * s, h = 180 * s;
+  ic.fillStyle = '#000'; ic.fillRect(0, 0, cw, ch); ic.drawImage(B, cw / 2 - 160 * s, ch / 2 - cy * s, w, h);
+}
+function introLoop(t) {
+  if (!introOn) return;
+  const el = (t - sceneT0) / 1000;
+  if (scene === 'title') noiseFill(.22);
+  else if (scene === 'msg') { noiseFill(.12); b.strokeStyle = g(.4); b.beginPath(); for (let x = 0; x < 320; x++) { const y = 150 + Math.sin(x * 0.16 + el * 6) * 5 * Math.abs(Math.sin(el * 1.4)) + (Math.random() - .5) * 2; x ? b.lineTo(x, y) : b.moveTo(x, y); } b.stroke(); }
+  else if (scene === 'radio') drawRadio(el);
+  else if (scene === 'coast') drawCoast(el);
+  else if (scene === 'room') drawRoom(el);
+  blit(scene === 'room' ? 1 + Math.min(el, 14) * 0.02 : scene === 'coast' ? 1.02 + Math.min(el, 20) * 0.004 : 1, scene === 'room' ? 92 : 90);
+  requestAnimationFrame(introLoop);
+}
+requestAnimationFrame(introLoop);
+
+const SCENES = [
+  { k: 'radio', top: '02:47 · ДИАПАЗОН 41 М · 6 997 кГц',
+    cap: 'Октябрь 2026 года, без тринадцати три ночи. Ты третий год слушаешь эфир по ночам, и обычно там только шум. Но сегодня на частоте 6 997 кГц, где с 1987 года не было ни одного сигнала, кто-то вышел в эфир.',
+    on() { setHiss(.05); setTimeout(() => { if (scene === 'radio') { sigOn = true; morseLoop('ЭХО 7'); } }, 2400); } },
+  { k: 'msg', top: 'ПРИЁМНИК · АВТОРАСШИФРОВКА', big: 'ТОМУ, КТО СЛЫШИТ.\nСТАНЦИЯ ЭХО-7.\nПРИХОДИ ДО РАССВЕТА.',
+    cap: 'Ты знаешь этот позывной. Станция ЭХО-7 стоит на мысе в сорока минутах езды. Её закрыли в марте 1987 года, когда бесследно пропала оператор Вера Соколова. Дело так и не раскрыли.',
+    on() { setHiss(.025); } },
+  { k: 'coast', top: '03:41 · МЫС · СТАНЦИЯ ЭХО-7',
+    cap: 'Забор повален, дверь не заперта. Над морем ходит луч маяка, хотя маяк погас вместе со станцией тридцать девять лет назад.',
+    on() { morseStop(); setHiss(.006); setSea(.14); } },
+  { k: 'room', top: '03:52 · АППАРАТНАЯ',
+    cap: 'Внутри темно и пахнет пылью. Светится только экран старого терминала, и сигнал идёт отсюда. Узнай, что случилось с Верой, пока не рассвело.',
+    on() { setSea(.04); } }
+];
+const intr = { i: -1, typing: false, fast: false };
+async function goScene(i) {
+  intr.i = i; const sc = SCENES[i]; scene = sc.k; sceneT0 = performance.now(); sigOn = false;
+  if (sc.k === 'radio') { b.fillStyle = '#000'; b.fillRect(0, 0, 320, 180); }
+  $('#itop').textContent = sc.top; $('#istep').textContent = `${i + 1}/${SCENES.length}`;
+  $('#iNext').textContent = i === SCENES.length - 1 ? 'ПОДОЙТИ К ТЕРМИНАЛУ ▶' : 'ДАЛЕЕ ▶';
+  sc.on(); intr.fast = false; intr.typing = true; const my = i;
+  const big = $('#ibig'); big.hidden = !sc.big; big.textContent = '';
+  const cap = $('#icap'); cap.textContent = '';
+  if (sc.big) { await wait(500); await typeText(big, sc.big, 45, () => intr.fast || intr.i !== my); await wait(300); }
+  if (intr.i !== my) return;
+  await typeText(cap, sc.cap, 22, () => intr.fast || intr.i !== my);
+  if (intr.i === my) intr.typing = false;
+}
+function introNext() { audioInit(); if (intr.typing) { intr.fast = true; return; } if (intr.i < SCENES.length - 1) { tick(); goScene(intr.i + 1); } else endIntro(); }
+function endIntro() {
+  if (!introOn) return; morseStop(); setSea(0); setHiss(0);
+  intr.i = 99; intro.classList.add('fade');
+  setTimeout(() => { introOn = false; intro.hidden = true; powerOn(); }, reduced ? 0 : 1200);
+}
+$('#iStart').onclick = () => { audioInit(); $('#ititle').hidden = true; $('#ilayer').hidden = false; goScene(0); };
+$('#iSkip0').onclick = () => { audioInit(); endIntro(); };
+$('#iSkip').onclick = e => { e.stopPropagation(); audioInit(); endIntro(); };
+$('#iNext').onclick = e => { e.stopPropagation(); introNext(); };
+$('#ilayer').addEventListener('click', e => { if (!e.target.closest('button')) introNext(); });
+addEventListener('keydown', e => { if (!introOn || $('#ilayer').hidden) return; if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight') { e.preventDefault(); introNext(); } });
+
+/* ================= ЭКРАН И ЗАГРУЗКА ================= */
+const screen = $('#screen');
+const st = { on: false, name: 'ОПЕРАТОР', rot: 0, s: 0, aligned: false, alignedOnce: false, hints: 0, solved: false, t0: 0, tEnd: 0, begun: false, lectureSeen: false, f1Opened: false, frags: {}, unlocked: new Set([1]), deskT0: 0 };
+const show = id => ['vOff', 'vBoot', 'vDesk'].forEach(v => $('#' + v).hidden = v !== id);
+const nc = $('#noise'), nx = nc.getContext('2d'); nc.width = 160; nc.height = 100; const nimg = nx.createImageData(160, 100);
+function noise() { const d = nimg.data; for (let i = 0; i < d.length; i += 4) { const v = Math.random() * 255 | 0; d[i] = d[i + 1] = d[i + 2] = v; d[i + 3] = 255; } nx.putImageData(nimg, 0, 0); }
+
+const BIOS = [
+  'ЭХО-7 · ТЕРМИНАЛ 03 · ПЗУ v1.987',
+  'ПРОВЕРКА ПАМЯТИ ............ 640 КБ   ОК',
+  'ПИТАНИЕ .................... АВАРИЙНЫЙ АККУМУЛЯТОР',
+  'НЕПРЕРЫВНАЯ РАБОТА ......... 347 016 Ч',
+  'ПЕРЕДАТЧИК ................. АКТИВЕН · 6 997 кГц',
+  'ПОСЛЕДНИЙ ВХОД: ВЕРА С. · 14.03.1987 · 02:51',
+  ''
+];
+const bootLines = $('#bootLines');
+const bline = () => { const d = document.createElement('div'); bootLines.appendChild(d); return d; };
+async function powerOn() {
+  if (st.on) return; st.on = true; audioInit(); boom();
+  $('#led').classList.add('on'); screen.classList.remove('off'); show('vBoot');
+  screen.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' });
+  $('#flash').classList.add('go'); await wait(800); setHiss(.025);
+  for (const l of BIOS) { await typeText(bline(), l, 9); await wait(150); }
+  $('#callForm').hidden = false; $('#callInput').focus({ preventScroll: true });
+}
+$('#power').onclick = () => { if (introOn) endIntro(); else powerOn(); };
+$('#callForm').addEventListener('submit', async e => {
+  e.preventDefault(); audioInit();
+  st.name = ($('#callInput').value.trim().toUpperCase() || 'ЧАЙКА').slice(0, 14);
+  $('#callForm').hidden = true;
+  await typeText(bline(), '> ПОЗЫВНОЙ ' + st.name + ' ПРИНЯТ. ЗАГРУЗКА ВЕГА-ОС', 10);
+  $('#loadBar').hidden = false;
+  for (let p = 0; p <= 100; p += 4) { $('#loadFill').style.width = p + '%'; if (p % 12 === 0) tick(); await wait(40 + Math.random() * 60); }
+  await wait(300); jolt(); showDesk();
+});
+function jolt() { screen.classList.remove('jolt'); void screen.offsetWidth; screen.classList.add('jolt'); burst(0.12, 1200, 0.12); }
+
+/* ================= РАБОЧИЙ СТОЛ ================= */
+const desk = $('#desk'); let Z = 20; const openOrder = [];
+const narrow = () => desk.classList.contains('narrow');
+function layoutDesk() { desk.classList.toggle('narrow', desk.clientWidth < 720); }
+addEventListener('resize', () => { layoutDesk(); sizeScope(); });
+const PLACE = {
+  echo: (W, H) => ({ x: W - 450, y: H - 400, w: 430 }),
+  f1: W => ({ x: 236, y: 10, w: Math.min(860, W - 248) }),
+  lec: W => ({ x: 270, y: 30, w: Math.min(700, W - 290) }),
+  arc: W => ({ x: 250, y: 40, w: Math.min(780, W - 270) }),
+  log: () => ({ x: 220, y: 56, w: 560 }),
+  trash: () => ({ x: 250, y: 90, w: 480 }),
+  vera: W => ({ x: W - 600, y: 20, w: 580 }),
+  pass: (W, H) => ({ x: W / 2 - 200, y: H / 2 - 150, w: 400 }),
+  stub: () => ({ x: 300, y: 110, w: 440 })
+};
+function placeWin(el, id) {
+  const W = desk.clientWidth, H = desk.clientHeight, p = PLACE[id](W, H);
+  const w = Math.min(p.w, W - 16); el.style.width = w + 'px';
+  el.style.left = Math.max(8, Math.min(p.x, W - w - 8)) + 'px'; el.style.top = Math.max(8, Math.min(p.y, H - 140)) + 'px';
+}
+function focusWin(el) { $$('.win.focus').forEach(w => w.classList.remove('focus')); el.classList.add('focus'); el.style.zIndex = ++Z; renderTask(); }
+function openWin(id) {
+  const el = $('#w-' + id);
+  if (el.hidden) {
+    placeWin(el, id); el.hidden = false; el.classList.remove('opening'); void el.offsetWidth; el.classList.add('opening'); openSnd();
+    const k = openOrder.indexOf(id); if (k >= 0) openOrder.splice(k, 1); openOrder.push(id);
+  }
+  focusWin(el); if (id === 'echo') $('#tbEcho').classList.remove('new');
+  if (id === 'f1') { requestAnimationFrame(sizeScope); onOpenF1(); }
+  if (id === 'vera') renderVera();
+  return el;
+}
+function closeWin(id) {
+  const el = $('#w-' + id); if (el.hidden) return; el.hidden = true; tone(300, 0.05, 'square', 0.025);
+  const k = openOrder.indexOf(id); if (k >= 0) openOrder.splice(k, 1);
+  if (id === 'lec') onLectureClosed();
+  renderTask();
+}
+const TITLES = { echo: 'ЭХО', f1: 'ФАЙЛ_01', lec: 'ЛЕКЦИЯ', arc: 'АРХИВ', log: 'ЖУРНАЛ', trash: 'КОРЗИНА', vera: 'ВЕРА.SYS', pass: 'ЗАЩИТА', stub: 'ФАЙЛ' };
+function renderTask() {
+  const tbs = $('#tbs'); tbs.innerHTML = '';
+  openOrder.filter(id => id !== 'echo').forEach(id => {
+    const el = $('#w-' + id), bt = document.createElement('button'); bt.type = 'button'; bt.className = 'tb' + (el.classList.contains('focus') ? ' active' : '');
+    bt.textContent = id === 'stub' ? $('#stubTitle').textContent.split(' ')[0] : TITLES[id]; bt.onclick = () => focusWin(el); tbs.appendChild(bt);
+  });
+  $('#tbEcho').classList.toggle('active', !$('#w-echo').hidden && $('#w-echo').classList.contains('focus'));
+}
+$('#tbEcho').onclick = () => { audioInit(); openWin('echo'); };
+
+let dr = null;
+desk.addEventListener('pointerdown', e => {
+  const w = e.target.closest('.win');
+  if (!w) { if (!e.target.closest('.ico')) $$('.ico.sel').forEach(i => i.classList.remove('sel')); return; }
+  if (!w.classList.contains('focus') || w.style.zIndex < Z) focusWin(w);
+  const t = e.target.closest('.wtitle'); if (!t || e.target.closest('button') || narrow()) return;
+  const r = w.getBoundingClientRect(); dr = { w, dx: e.clientX - r.left, dy: e.clientY - r.top, d: desk.getBoundingClientRect() };
+  t.setPointerCapture(e.pointerId);
+});
+desk.addEventListener('pointermove', e => {
+  if (!dr) return; const W = dr.d.width, H = dr.d.height, ww = dr.w.offsetWidth;
+  const x = Math.max(60 - ww, Math.min(W - 60, e.clientX - dr.d.left - dr.dx)), y = Math.max(0, Math.min(H - 80, e.clientY - dr.d.top - dr.dy));
+  dr.w.style.left = x + 'px'; dr.w.style.top = y + 'px';
+});
+const endDr = () => { dr = null; }; desk.addEventListener('pointerup', endDr); desk.addEventListener('pointercancel', endDr);
+desk.addEventListener('click', e => { const c = e.target.closest('[data-close]'); if (c) closeWin(c.closest('.win').dataset.id); });
+document.addEventListener('keydown', e => { if (e.key !== 'Escape' || introOn) return; const f = $('.win.focus:not([hidden])'); if (f) closeWin(f.dataset.id); });
+
+/* иконки: одиночный клик выделяет, двойной открывает; касание и Enter открывают сразу */
+let lastPtr = 'mouse';
+desk.addEventListener('pointerdown', e => { lastPtr = e.pointerType; }, true);
+desk.addEventListener('click', e => {
+  const ic = e.target.closest('.ico'); if (!ic) return; audioInit();
+  if (e.detail === 0 || lastPtr === 'touch' || narrow()) return launch(ic);
+  $$('.ico.sel').forEach(i => i.classList.remove('sel')); ic.classList.add('sel'); tick();
+});
+desk.addEventListener('dblclick', e => { const ic = e.target.closest('.ico'); if (ic) launch(ic); });
+function launch(ic) {
+  const id = ic.dataset.open; ic.classList.remove('ping');
+  if (/^f[2-5]$/.test(id)) { const n = +id[1]; if (st.unlocked.has(n)) openStub(n); else openPass(n); return; }
+  if (id === 'arc') renderArchive(0);
+  openWin(id);
+}
+
+/* ================= ЭХО ================= */
+const elog = $('#elog'), lvlT = $('#lvlEchoT'); let echoChain = Promise.resolve(), curT = null;
+function echo(text, open = false) {
+  echoChain = echoChain.then(() => {
+    const line = document.createElement('div'); line.className = 'eline';
+    line.innerHTML = '<span class="who">ЭХО&gt;</span><span class="t"></span>';
+    elog.appendChild(line); while (elog.children.length > 40) elog.firstChild.remove();
+    const body = elog.parentElement; body.scrollTop = body.scrollHeight;
+    if (open) openWin('echo'); else if ($('#w-echo').hidden) $('#tbEcho').classList.add('new');
+    curT = line.querySelector('.t');
+    return typeText([curT, lvlT], text, 17).then(() => { body.scrollTop = body.scrollHeight; });
+  });
+  return echoChain;
+}
+$('#w-echo').addEventListener('click', () => { if (curT) curT._skip = true; });
+
+function showDesk() {
+  screen.classList.add('desk-mode'); show('vDesk'); layoutDesk(); st.deskT0 = Date.now(); setHiss(.012);
+  setTimeout(() => {
+    openWin('echo');
+    const tap = narrow() ? 'нажми' : 'дважды щёлкни';
+    echo(`${st.name}? Ты пришёл. Я ЭХО, программа этого терминала. {Это я тебя позвала.>Сигнал передаю я.} Каждые десять минут, тридцать девять лет подряд.`);
+    echo('Вера Соколова работала здесь оператором. В ночь на 14 марта 1987 года она исчезла, а перед этим спрятала всё, что знала, в файл ВЕРА.SYS. Он справа, но повреждён.');
+    echo('Чтобы его восстановить, нужны пять фрагментов. Каждый спрятан в одном из её перехватов: ФАЙЛ_01 … ФАЙЛ_05.');
+    echo(`Перехваты заперты цепочкой: слово из одного файла открывает следующий. Первый открыт, ${tap} по нему.`);
+    echo('Загляни и в ЖУРНАЛ, и в КОРЗИНУ. Вера ничего не оставляла просто так.')
+      .then(() => { if (!st.f1Opened) $('.ico[data-open="f1"]').classList.add('ping'); });
+  }, reduced ? 0 : 500);
+}
+setInterval(() => {
+  if (st.deskT0) { const m = 3 * 60 + 52 + Math.floor((Date.now() - st.deskT0) / 60000); $('#clk').textContent = String(Math.floor(m / 60) % 24).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); }
+  if (st.t0) { const sec = Math.floor(((st.tEnd || Date.now()) - st.t0) / 1000); $('#lvlClock').textContent = String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0'); }
+}, 500);
+
+/* ================= УРОВЕНЬ 1 ================= */
+function onOpenF1() {
+  if (st.f1Opened) return; st.f1Opened = true; buildMessage(); setRot(0, false);
+  if (!st.begun) {
+    setTimeout(() => { openWin('lec'); lec.i = 0; renderSlide(); }, reduced ? 0 : 450);
+    echo('Это перехват от 12 марта. Сначала коротко расскажу, как устроен шифр. Лекцию можно пропустить, она останется в АРХИВЕ.');
+  }
+}
+function beginLevel() {
+  if (st.begun) return; st.begun = true; st.t0 = Date.now();
+  echo('{Я сдвинула>Вера сдвинула} каждую букву на одно и то же число. Крути внутреннее кольцо диска, пока текст не станет читаемым.');
+  if (!st.lectureSeen) echo('Застрянешь, жми ПОДСКАЗКА. Лекция лежит в АРХИВЕ.');
+}
+
+const msgText = $('#msgText'), letters = [];
+function buildMessage() {
+  if (letters.length) return;
+  const codeStart = LEVEL.plain.indexOf(LEVEL.code); let idx = 0;
+  CIPHER.split(' ').forEach((w, wi) => {
+    if (wi) { msgText.appendChild(document.createTextNode(' ')); idx++; }
+    const ws = document.createElement('span'); ws.className = 'w';
+    for (const c of w) {
+      const sp = document.createElement('span'); sp.textContent = c;
+      if (A.includes(c)) { sp.className = 'l'; sp.dataset.a = A.indexOf(c); if (idx >= codeStart && idx < codeStart + LEVEL.code.length) sp.classList.add('code'); letters.push({ el: sp, c }); }
+      ws.appendChild(sp); idx++;
+    }
+    msgText.appendChild(ws);
+  });
+}
+let scr = 0;
+function renderShift(s, anim) {
+  const tgt = letters.map(o => sh(o.c, -s)); cancelAnimationFrame(scr);
+  if (!anim || reduced) { letters.forEach((o, i) => o.el.textContent = tgt[i]); return; }
+  const t0 = performance.now(), dur = letters.map(() => 40 + Math.random() * 170);
+  const f = t => { let done = true; letters.forEach((o, i) => { if (t - t0 < dur[i]) { done = false; o.el.textContent = A[Math.random() * N | 0]; } else o.el.textContent = tgt[i]; }); if (!done) scr = requestAnimationFrame(f); };
+  scr = requestAnimationFrame(f);
+}
+
+/* диск */
+const NS = 'http://www.w3.org/2000/svg', svg = $('#disk'), CX = 160, STEP = 360 / N;
+const mk = (tag, at, p) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); if (p) p.appendChild(e); return e; };
+const polar = (r, deg) => { const a = (deg - 90) * Math.PI / 180; return [CX + r * Math.cos(a), CX + r * Math.sin(a)]; };
+const wedge = (r1, r2, a1, a2) => { const [x1, y1] = polar(r2, a1), [x2, y2] = polar(r2, a2), [x3, y3] = polar(r1, a2), [x4, y4] = polar(r1, a1); return `M${x1} ${y1} A${r2} ${r2} 0 0 1 ${x2} ${y2} L${x3} ${y3} A${r1} ${r1} 0 0 0 ${x4} ${y4}Z`; };
+const outerEls = [], innerEls = [];
+mk('circle', { cx: CX, cy: CX, r: 156, class: 'ring' }, svg); mk('circle', { cx: CX, cy: CX, r: 120, class: 'ring' }, svg);
+for (let i = 0; i < N; i++) {
+  const [a1, b1] = polar(121, (i + .5) * STEP), [a2, b2] = polar(155, (i + .5) * STEP); mk('line', { x1: a1, y1: b1, x2: a2, y2: b2, class: 'tick' }, svg);
+  const [x, y] = polar(138, i * STEP); const t = mk('text', { x, y, class: 'o', 'text-anchor': 'middle', 'dominant-baseline': 'central', transform: `rotate(${i * STEP} ${x} ${y})` }, svg); t.textContent = A[i]; outerEls.push(t);
+}
+const inner = mk('g', { id: 'inner' }, svg); inner.style.transformOrigin = `${CX}px ${CX}px`;
+mk('circle', { cx: CX, cy: CX, r: 118, class: 'band' }, inner); mk('circle', { cx: CX, cy: CX, r: 86, class: 'ring' }, inner);
+for (let i = 0; i < N; i++) {
+  const [a1, b1] = polar(87, (i + .5) * STEP), [a2, b2] = polar(117, (i + .5) * STEP); mk('line', { x1: a1, y1: b1, x2: a2, y2: b2, class: 'tick' }, inner);
+  const [x, y] = polar(103, i * STEP); const t = mk('text', { x, y, class: 'in', 'text-anchor': 'middle', 'dominant-baseline': 'central', transform: `rotate(${i * STEP} ${x} ${y})` }, inner); t.textContent = A[i]; innerEls.push(t);
+}
+const [nx1, ny1] = polar(84, 0); mk('circle', { cx: nx1, cy: ny1, r: 2.5, class: 'notch' }, inner);
+mk('path', { d: wedge(85, 157, -STEP / 2, STEP / 2), class: 'win2' }, svg);
+mk('circle', { cx: CX, cy: CX, r: 62, class: 'hub' }, svg);
+mk('text', { x: CX, y: CX - 18, class: 'hubl', 'text-anchor': 'middle' }, svg).textContent = 'СДВИГ';
+const hubN = mk('text', { x: CX, y: CX + 14, class: 'hubn', 'text-anchor': 'middle' }, svg); hubN.textContent = '00';
+mk('text', { x: CX, y: CX + 38, class: 'hubl', 'text-anchor': 'middle' }, svg).textContent = 'ШИФР / ТЕКСТ';
+
+/* осциллограф */
+const scope = $('#scope'), sx = scope.getContext('2d'); let scopeSig = 0, scopeTarget = 0, scopeT = 0;
+function sizeScope() { const r = scope.getBoundingClientRect(); if (r.width < 2) return; const d = devicePixelRatio || 1; scope.width = Math.round(r.width * d); scope.height = Math.round(r.height * d); drawScope(); }
+function drawScope() {
+  const w = scope.width, h = scope.height, d = devicePixelRatio || 1; if (w < 4) return; const ph = 'rgb(61,255,136)';
+  sx.clearRect(0, 0, w, h); sx.strokeStyle = ph; sx.lineWidth = 1; sx.globalAlpha = .16; sx.beginPath();
+  for (let i = 1; i < 10; i++) { const x = Math.round(w * i / 10) + .5; sx.moveTo(x, 0); sx.lineTo(x, h); }
+  for (let j = 1; j < 4; j++) { const y = Math.round(h * j / 4) + .5; sx.moveTo(0, y); sx.lineTo(w, y); }
+  sx.stroke(); sx.globalAlpha = 1; sx.lineWidth = 2 * d; sx.shadowColor = ph; sx.shadowBlur = 10 * d; sx.beginPath();
+  const s = scopeSig, nA = (1 - s) * (1 - s);
+  for (let x = 0; x <= w; x += 2 * d) {
+    const u = x / w, v = Math.sin(u * Math.PI * 7 + scopeT) * 0.62 * s + (Math.random() * 2 - 1) * 0.95 * nA + Math.sin(u * 53 + scopeT * 3) * 0.12 * (1 - s);
+    const y = h / 2 - Math.max(-1, Math.min(1, v)) * h * 0.42; x ? sx.lineTo(x, y) : sx.moveTo(x, y);
+  }
+  sx.stroke(); sx.shadowBlur = 0;
+}
+
+function setRot(r, anim) {
+  const changed = r !== st.rot; st.rot = r; st.s = mod(r, N);
+  inner.style.transform = `rotate(${r * STEP}deg)`; hubN.textContent = String(st.s).padStart(2, '0'); svg.setAttribute('aria-valuenow', st.s);
+  renderShift(st.s, anim); if (changed && anim) tick();
+  const sg = SIG[st.s]; scopeTarget = sg; $('#sigNum').textContent = Math.round(sg * 100) + '%'; if (reduced) { scopeSig = sg; drawScope(); }
+  if (st.begun && !st.solved) setHiss(0.006 + 0.03 * (1 - sg));
+  clearHl();
+  if (st.s === LEVEL.key) { if (!st.aligned) { st.aligned = true; onAligned(anim); } }
+  else if (st.aligned) { st.aligned = false; $('#msg').classList.remove('clear'); }
+}
+function onAligned(anim) {
+  $('#msg').classList.add('clear');
+  if (anim && !reduced) { msgText.classList.remove('glitch'); void msgText.offsetWidth; msgText.classList.add('glitch'); burst(0.2, 900, 0.14); }
+  if (!st.solved) { tone(880, 0.12, 'triangle', 0.05, 0.25); tone(1320, 0.2, 'triangle', 0.05, 0.37); }
+  if (!st.alignedOnce && !st.solved) { st.alignedOnce = true; echo('Сигнал чистый, текст читается. {Я писала его при свечах, свет тогда отключили.>} Найди кодовое слово и запиши его как фрагмент.'); }
+}
+const turn = d => { audioInit(); setRot(st.rot + d, true); };
+$('#cw').onclick = () => turn(1); $('#ccw').onclick = () => turn(-1);
+svg.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); turn(1); } if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); turn(-1); } });
+svg.addEventListener('wheel', e => { e.preventDefault(); turn(e.deltaY > 0 ? 1 : -1); }, { passive: false });
+let drag = null;
+const angAt = e => { const r = svg.getBoundingClientRect(); return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI; };
+svg.addEventListener('pointerdown', e => { audioInit(); drag = { last: angAt(e), acc: 0, base: st.rot }; svg.setPointerCapture(e.pointerId); svg.classList.add('grab'); });
+svg.addEventListener('pointermove', e => { if (!drag) return; const a = angAt(e); let d = a - drag.last; if (d > 180) d -= 360; if (d < -180) d += 360; drag.last = a; drag.acc += d; const r = drag.base + Math.round(drag.acc / STEP); if (r !== st.rot) setRot(r, true); });
+const endDrag = () => { drag = null; svg.classList.remove('grab'); };
+svg.addEventListener('pointerup', endDrag); svg.addEventListener('pointercancel', endDrag);
+function clearHl() { svg.querySelectorAll('.hl').forEach(e => e.classList.remove('hl')); msgText.querySelectorAll('.l.hl').forEach(e => e.classList.remove('hl')); }
+msgText.addEventListener('pointerover', e => {
+  const l = e.target.closest('.l'); if (!l) return; clearHl(); const ai = +l.dataset.a;
+  outerEls[ai].classList.add('hl'); innerEls[mod(ai - st.s, N)].classList.add('hl');
+  msgText.querySelectorAll(`.l[data-a="${ai}"]`).forEach(x => x.classList.add('hl'));
+});
+msgText.addEventListener('pointerleave', clearHl);
+
+$('#codeForm').addEventListener('submit', e => {
+  e.preventDefault(); audioInit(); if (st.solved) return;
+  const v = norm($('#codeInput').value), err = $('#errLine'); if (!v) return;
+  if (v === norm(LEVEL.code)) return solved();
+  errSnd(); const f = $('#codeForm'); f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake');
+  err.textContent = 'ОТКАЗ · ЭТО НЕ ФРАГМЕНТ'; err.classList.add('on'); setTimeout(() => { err.textContent = ''; err.classList.remove('on'); }, 2200);
+  echo(st.aligned ? 'Не то слово. Перечитай: Вера прямо пишет, какой ключ открывает следующую дверь.' : 'Текст ещё не читается. Сначала подбери сдвиг на диске.');
+});
+function solved() {
+  st.solved = true; st.tEnd = Date.now(); if (st.s !== LEVEL.key) setRot(st.rot + mod(LEVEL.key - st.s, N), true);
+  chord(); setHiss(.01); jolt();
+  st.frags[1] = { word: LEVEL.code, date: FILES[1].date };
+  $('#codeInput').value = LEVEL.code; $('#codeInput').disabled = true; $('#codeForm').querySelector('button').disabled = true; $('#hintBtn').disabled = true;
+  renderVera(); $('#veraSub').textContent = 'ПОВРЕЖДЁН · 1/5'; $('.ico[data-open="vera"]').classList.add('ping'); $('.ico[data-open="f2"]').classList.add('ping');
+  const sec = Math.floor((st.tEnd - st.t0) / 1000), tm = String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0');
+  $('#resultBox').innerHTML = `<div class="result">
+    <div class="stamp">ФРАГМЕНТ 1/5 ЗАПИСАН</div>
+    <div class="stats"><span>Время<b>${tm}</b></span><span>Подсказки<b>${st.hints}/3</b></span><span>Ключ<b>${LEVEL.key}</b></span><span>Эфир<b>12.03</b></span></div>
+    <p>Ты разобрал шифр Цезаря: нашёл ключ-сдвиг, увидел, почему 32 ключа легко перебрать, и как частоты букв выдают ответ.</p>
+    <div class="row"><button class="tbtn primary" type="button" id="goVera">ОТКРЫТЬ ВЕРА.SYS</button><button class="tbtn" type="button" id="goF2">К ФАЙЛУ_02</button></div></div>`;
+  $('#goVera').onclick = () => openWin('vera'); $('#goF2').onclick = () => openPass(2);
+  echo('Фрагмент записан в ВЕРА.SYS: МАЯК, дата эфира 12.03.1987. {Маяк было видно из моего окна.>}');
+  echo('МАЯК — ещё и пароль от ФАЙЛА_02. Так устроена цепочка: каждое слово открывает следующий перехват.');
+}
+
+/* подсказки */
+const tyC = shStr('ТЫ', LEVEL.key);
+const HINTS = [
+  { t: 'НАМЁК', x: 'Начни с коротких слов. Двухбуквенных слов в русском немного: ТЫ, НЕ, ОН, НО, ЗА. Крути диск, пока короткое слово шифровки не превратится в одно из них.' },
+  { t: 'ОБЪЯСНЕНИЕ', x: `Все буквы сдвинуты на одно и то же число. Второе слово шифровки «${tyC}». Если это «ТЫ», то буква Т превратилась в ${sh('Т', LEVEL.key)}. Посчитай, на сколько позиций ${sh('Т', LEVEL.key)} стоит дальше Т в алфавите: это и есть ключ.` },
+  { t: 'ОТВЕТ', x: `Ключ ${LEVEL.key}. Поверни внутреннее кольцо на ${LEVEL.key} делений по часовой стрелке, и в тексте появится кодовое слово.`, btn: true }
+];
+$('#hintBtn').onclick = () => {
+  audioInit(); if (st.hints >= 3 || st.solved) return; const h = HINTS[st.hints]; st.hints++;
+  $('#hintBtn').textContent = `ПОДСКАЗКА ${st.hints}/3`; if (st.hints >= 3) $('#hintBtn').disabled = true;
+  const d = document.createElement('div'); d.className = 'hint'; d.innerHTML = `<b>${st.hints}/3 · ${h.t}</b>${h.x}`;
+  if (h.btn) { const bt = document.createElement('button'); bt.className = 'tbtn'; bt.type = 'button'; bt.textContent = `ПОСТАВИТЬ СДВИГ ${LEVEL.key}`; bt.onclick = () => setRot(st.rot + mod(LEVEL.key - st.s, N), true); d.appendChild(document.createElement('br')); d.appendChild(bt); }
+  $('#hintBox').appendChild(d); tone(660, 0.1, 'triangle', 0.04);
+  echo(h.t === 'ОТВЕТ' ? 'Держи ответ. Баллы он не снимет, но звание в финале будет скромнее.' : 'Подсказка под диском.');
+};
+
+/* ================= ЛЕКЦИЯ И АРХИВ ================= */
+const SLIDES = [
+  { t: 'ОТКУДА ОН ВЗЯЛСЯ', p: ['Шифр сдвига — один из самых старых способов спрятать текст. Римский историк Светоний пишет, что Гай Юлий Цезарь в секретных письмах заменял каждую букву той, что стоит в алфавите на три позиции дальше.', 'Поэтому его называют шифром Цезаря. Император Август, преемник Цезаря, тоже шифровал письма, но сдвигал всего на одну букву.'],
+    demo: { type: 'strip', al: LAT, k: 3, ex: 'VENI VIDI VICI', cap: 'Латиница, сдвиг 3. Наведи на столбец' } },
+  { t: 'КАК ОН РАБОТАЕТ', p: ['Выбираешь число, это ключ. Каждую букву сообщения сдвигаешь вперёд по алфавиту на это число. Пробелы и знаки препинания не трогаешь.', 'Когда алфавит заканчивается, счёт идёт с начала: после Я снова А. Поэтому алфавит удобно записать по кругу, так и появился шифровальный диск.', 'Чтобы прочитать шифровку, сдвигаешь буквы на то же число назад.'],
+    demo: { type: 'strip', al: A, k: 3, ex: 'ЭХО', cap: 'Русский алфавит, сдвиг 3. Сверху открытый текст, снизу шифр' } },
+  { t: 'В ЧЁМ ЕГО СЛАБОСТЬ', p: ['В русском алфавите 33 буквы, значит, разных ключей всего 32. Их можно перебрать по очереди, и один из вариантов окажется читаемым.', 'Есть способ быстрее: частотный анализ. В длинном русском тексте чаще всего встречаются О, Е и А. Сдвиг не меняет частоты, он просто переносит их на другие буквы. Арабский учёный аль-Кинди описал этот метод ещё в IX веке.', 'Индикатор СИГНАЛ на твоём экране считает именно это: насколько частоты букв похожи на русский язык.'],
+    demo: { type: 'freq', cap: 'Самые частые буквы русского языка, % от всех букв' } },
+  { t: 'ГДЕ ЕГО ВСТРЕТИШЬ', p: ['Около 1467 года итальянский архитектор Леон Баттиста Альберти описал шифровальный диск из двух колец с алфавитами. Диск на твоём экране устроен так же.', 'В интернете 1980-х появился ROT13: сдвиг латиницы на 13 букв. Им прятали спойлеры и ответы на загадки. Защиты шифр Цезаря не даёт, но на нём построены более сложные шифры. Один из них ждёт тебя в четвёртом файле. {Я спрятала там самое важное.>}'],
+    demo: { type: 'strip', al: LAT, k: 13, ex: 'SPOILER', cap: 'ROT13: сдвиг 13. Примени его дважды, и получишь исходный текст' } }
+];
+function buildDemo(d) {
+  const w = document.createElement('div'); w.className = 'demo'; w.innerHTML = `<div class="cap">${d.cap}</div>`;
+  if (d.type === 'strip') {
+    const s = document.createElement('div'); s.className = 'strip'; const row = document.createElement('div'); row.className = 'row';
+    const used = new Set([...d.ex].map(ch => d.al.indexOf(ch)).filter(i => i >= 0));
+    [...d.al].forEach((ch, i) => { const c = document.createElement('div'); c.className = 'col' + (used.has(i) ? ' hl' : ''); c.innerHTML = `<span>${ch}</span><span>${sh(ch, d.k, d.al)}</span>`; row.appendChild(c); });
+    s.appendChild(row); w.appendChild(s);
+    const ex = document.createElement('div'); ex.className = 'ex'; ex.innerHTML = `${d.ex} → <b>${shStr(d.ex, d.k, d.al)}</b>`; w.appendChild(ex);
+  } else {
+    const top = Object.entries(FREQ).slice(0, 10), m = top[0][1], f = document.createElement('div'); f.className = 'freq';
+    top.forEach(([ch, v]) => f.insertAdjacentHTML('beforeend', `<div class="fr"><span>${ch}</span><i style="width:${(v / m * 100).toFixed(1)}%"></i><span>${v.toFixed(1)}%</span></div>`));
+    w.appendChild(f);
+  }
+  return w;
+}
+const lec = { i: 0, fast: false, typing: false };
+async function renderSlide() {
+  const s = SLIDES[lec.i], my = lec.i; lec.fast = false; lec.typing = true;
+  $('#lecNum').textContent = `${lec.i + 1}/${SLIDES.length}`; $('#lecTitle').textContent = s.t;
+  const body = $('#lecBody'); body.innerHTML = ''; const demo = $('#lecDemo'); demo.innerHTML = ''; demo.appendChild(buildDemo(s.demo));
+  $('#lecPrev').disabled = lec.i === 0; $('#lecNext').textContent = lec.i === SLIDES.length - 1 ? 'К ПЕРЕХВАТУ ▶' : 'ДАЛЕЕ ▶';
+  $('#w-lec .wbody').scrollTop = 0;
+  for (const p of s.p) { if (lec.i !== my || $('#w-lec').hidden) return; const el = document.createElement('p'); body.appendChild(el); await typeText(el, p, 11, () => lec.fast || lec.i !== my); }
+  if (lec.i === my) lec.typing = false;
+}
+function onLectureClosed() { st.lectureSeen = true; lec.i = -1; beginLevel(); }
+$('#lecNext').onclick = () => { audioInit(); if (lec.typing) { lec.fast = true; return; } if (lec.i < SLIDES.length - 1) { lec.i++; tick(); renderSlide(); } else closeWin('lec'); };
+$('#lecPrev').onclick = () => { if (lec.i > 0) { lec.i--; tick(); renderSlide(); } };
+$('#lecSkip').onclick = () => closeWin('lec');
+
+const ARC = ['ШИФР СДВИГА', 'АЗБУКА МОРЗЕ', 'ДВОИЧНЫЙ КОД', 'ШИФР ВИЖЕНЕРА', 'СИГНАЛ ИЗ ШУМА'];
+function renderArchive(sel) {
+  const list = $('#arList'); list.innerHTML = '';
+  ARC.forEach((n, i) => { const bt = document.createElement('button'); bt.type = 'button'; bt.className = 'tbtn' + (i === sel ? ' sel' : ''); bt.textContent = `0${i + 1} · ${i === 0 ? n : 'ЗАПЕРТО'}`; bt.disabled = i > 0; list.appendChild(bt); });
+  const body = $('#arBody'); body.innerHTML = '<h3 class="otitle">ШИФР ЦЕЗАРЯ</h3>';
+  if (st.solved) body.insertAdjacentHTML('beforeend', `<p class="note" style="margin-bottom:12px">ФАЙЛ_01 открыт со сдвигом ${LEVEL.key}. Фрагмент: ${LEVEL.code}, эфир 12.03.1987.</p>`);
+  SLIDES.forEach(s => {
+    const h = document.createElement('h4'); h.textContent = s.t; body.appendChild(h);
+    s.p.forEach(p => { const e = document.createElement('p'); e.textContent = p.replace(SLIP, '$2').trim(); body.appendChild(e); });
+    body.appendChild(buildDemo(s.demo));
+  });
+}
+
+/* ================= ВЕРА.SYS ================= */
+const SHARDS = ['ЕСЛИ ТЫ', 'НЕ ВЕРЬ', 'МАЯК', '02:51', 'ПЕРЕДАЮ', 'Я ЗДЕСЬ', 'Г. ЗНАЕТ', 'ДОМОЙ'];
+function dumpTick() {
+  if ($('#w-vera').hidden) return; const n = Object.keys(st.frags).length, hex = '0123456789ABCDEF', junk = '░▒▓█#%&@$?¤§';
+  let out = '';
+  for (let r = 0; r < 7; r++) {
+    let line = (0x1F40 + r * 16).toString(16).toUpperCase().padStart(4, '0') + '  ';
+    for (let i = 0; i < 12; i++) line += hex[Math.random() * 16 | 0] + hex[Math.random() * 16 | 0] + ' ';
+    let asc = ''; for (let i = 0; i < 14; i++) asc += Math.random() < 0.08 + n * 0.12 ? A[Math.random() * N | 0] : junk[Math.random() * junk.length | 0];
+    if (Math.random() < 0.18 + n * 0.1) { const s = SHARDS[Math.random() * SHARDS.length | 0]; const p = Math.random() * (14 - s.length) | 0; asc = asc.slice(0, p) + s + asc.slice(p + s.length); }
+    out += line + ' ' + asc.slice(0, 14) + '\n';
+  }
+  $('#dump').textContent = out;
+}
+setInterval(dumpTick, reduced ? 2000 : 140);
+function renderVera() {
+  const n = Object.keys(st.frags).length; $('#vCount').textContent = `ФРАГМЕНТЫ ${n}/5`;
+  const sl = $('#slots'); sl.innerHTML = '';
+  for (let i = 1; i <= 5; i++) {
+    const f = st.frags[i], d = document.createElement('div'); d.className = 'slot' + (f ? ' on' : '');
+    d.innerHTML = f ? `ИЗ ФАЙЛА_0${i}<b>${f.word}</b>ЭФИР ${f.date}` : `ИЗ ФАЙЛА_0${i}<b>░░░░</b>ЭФИР ??.??.1987`;
+    sl.appendChild(d);
+  }
+  $('#veraFix').textContent = n < 5 ? `ВОССТАНОВИТЬ · НУЖНО 5/5` : 'ВОССТАНОВИТЬ'; $('#veraFix').disabled = n < 5;
+  dumpTick();
+}
+
+/* ================= ПАРОЛИ И ФАЙЛЫ 2–5 ================= */
+let passN = 0;
+function openPass(n) {
+  passN = n; $('#passTitle').textContent = `ФАЙЛ_0${n}.ENC · ЗАЩИЩЁН`;
+  $('#passText').innerHTML = `Перехват от ${FILES[n].date} зашифрован оператором Соколовой В.<br>Введите пароль. Подсказка оператора: <i>слово из предыдущего перехвата</i>.`;
+  $('#passInput').value = ''; $('#passErr').textContent = ''; $('#passErr').classList.remove('on');
+  openWin('pass'); setTimeout(() => $('#passInput').focus({ preventScroll: true }), 50);
+}
+$('#passForm').addEventListener('submit', e => {
+  e.preventDefault(); audioInit(); const v = norm($('#passInput').value); if (!v) return;
+  const want = FILES[passN].pass;
+  if (want && v === norm(want)) {
+    st.unlocked.add(passN); const ic = $(`.ico[data-open="f${passN}"]`); ic.classList.remove('locked', 'ping');
+    chord(); closeWin('pass'); openStub(passN);
+    echo(`ФАЙЛ_0${passN} открыт. Внутри перехват от ${FILES[passN].date}. Он раньше первого, видишь? Номера файлов не совпадают с датами.`);
+    return;
+  }
+  errSnd(); const f = $('#passForm'); f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake');
+  const er = $('#passErr'); er.textContent = 'ОТКАЗ · НЕВЕРНЫЙ ПАРОЛЬ'; er.classList.add('on'); setTimeout(() => { er.textContent = ''; er.classList.remove('on'); }, 2000);
+});
+function openStub(n) {
+  if (n === 2 && window.ECHO7_L2) return window.ECHO7_L2.open();
+  const F = FILES[n]; $('#stubTitle').textContent = `ФАЙЛ_0${n}.ENC · ${F.name}`;
+  $('#stubBody').innerHTML = `<div class="lvlbar"><span>ПЕРЕХВАТ ${F.date} · ${F.time} · ОТ: ВЕРА С.</span></div><p class="note">${F.desc}</p><div class="stamp">УРОВЕНЬ В РАЗРАБОТКЕ</div>`;
+  openWin('stub');
+}
+
+/* корзина */
+$$('[data-paper]').forEach(bt => bt.onclick = () => { $$('.paper').forEach(p => p.hidden = p.id !== bt.dataset.paper); tick(); });
+
+/* ================= ЦИКЛ ================= */
+let lastN = 0;
+const loop = t => {
+  if (t - lastN > 70) { noise(); lastN = t; }
+  if (!$('#w-f1').hidden && !reduced) { scopeSig += (scopeTarget - scopeSig) * 0.12; scopeT += 0.14; drawScope(); }
+  requestAnimationFrame(loop);
+};
+if (reduced) noise(); else requestAnimationFrame(loop);
+window.ECHO7 = { $, $$, st, echo, openWin, closeWin, typeText, reduced, audioInit, S, tone, burst, tick, chord, errSnd, jolt, setHiss, renderVera, renderArchive, openPass, FILES, PLACE, TITLES, SLIP, norm };
+})();
+</script>
+
+<!-- ================= УРОВЕНЬ 2 · СИГНАЛ (отдельный блок, уровень 1 не трогает) ================= -->
+<style>
+/* Окна второго уровня светятся янтарём: «другой канал». Остальной рабочий стол остаётся зелёным */
+#w-f2,#w-lec2{--ph:#ffb000;--hot:#fff3d4;--jam:#ff3b3b;
+  --ph-70:color-mix(in srgb,#ffb000 70%,transparent);--ph-40:color-mix(in srgb,#ffb000 40%,transparent);
+  --ph-15:color-mix(in srgb,#ffb000 15%,transparent);--ph-08:color-mix(in srgb,#ffb000 8%,transparent);
+  color:var(--ph);text-shadow:0 0 7px var(--ph-40),0 0 1px var(--ph-70);
+  box-shadow:0 0 0 1px #000,8px 8px 0 rgba(0,0,0,.65),0 0 34px var(--ph-15)}
+#w-f2 .grid>*{min-width:0}
+.l2stat{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 12px;font-size:11px;letter-spacing:.16em;margin-top:12px;text-transform:uppercase}
+.l2stat .rx.on::before{content:"● ";color:var(--jam);animation:blink 1s steps(1) infinite}
+.l2text{min-height:7.2em;margin:10px 0 14px}
+.l2text .l{cursor:pointer}
+.l2text .l.pend{visibility:hidden}
+.l2text .l.pn{opacity:.45}
+.l2text .l.q{color:var(--jam);text-shadow:0 0 8px rgba(255,59,59,.55);animation:qfl 1.2s steps(2) infinite}
+.l2text .l.q.sel{background:rgba(255,59,59,.2);animation:none}
+.l2text .l.got{color:var(--hot);animation:none}
+.l2text .l.nw{animation:nw .35s steps(3)}
+@keyframes nw{0%{color:var(--hot);text-shadow:0 0 14px var(--ph)}}
+@keyframes qfl{50%{opacity:.55}}
+.tape{position:relative;height:62px;overflow-x:auto;overflow-y:hidden;border:1px solid var(--ph-40);margin:0 0 12px;
+  background:radial-gradient(circle,var(--ph-15) 1.6px,transparent 2.2px) 0 6px/14px 14px repeat-x,
+             radial-gradient(circle,var(--ph-15) 1.6px,transparent 2.2px) 7px 48px/14px 14px repeat-x,
+             color-mix(in srgb,var(--ph) 5%,var(--glass));scrollbar-width:thin;scrollbar-color:var(--ph-40) transparent}
+.tapein{display:flex;align-items:center;height:100%;padding:0 14px;width:max-content}
+.grp{display:flex;align-items:center;gap:3px;height:30px;padding:0 4px;margin-right:7px;border:1px dashed transparent;background:none;cursor:pointer;color:inherit}
+.grp.ws{margin-left:16px}
+.grp i{display:block;height:5px;background:var(--ph);box-shadow:0 0 6px var(--ph-70);visibility:hidden}
+.grp i.d{width:5px;border-radius:50%}
+.grp i.t{width:15px;border-radius:2px}
+.grp i.v{visibility:visible}
+.grp.jam.rx{border-color:rgba(255,59,59,.45)}
+.grp.jam i{background:var(--jam);box-shadow:0 0 6px rgba(255,59,59,.7)}
+.grp.fixed i{background:var(--hot)}
+.grp.fixed{border-color:var(--ph-40)!important;border-style:solid}
+.grp.sel{border:1px solid var(--jam);background:rgba(255,59,59,.14)}
+.grp.hl,.grp.rx:hover{background:var(--ph-15)}
+.grp:focus-visible{outline:2px dashed var(--ph);outline-offset:2px}
+.l2ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:18px}
+.l2ctl .sp{flex:1}
+.spd{display:flex;gap:0}
+.spd .tbtn{padding:9px 10px;margin-left:-1px}
+.spd .tbtn.on{background:var(--ph-15);border-color:var(--ph)}
+.spdlab{font-size:11px;letter-spacing:.14em;opacity:.75;margin-right:6px}
+.rcv{width:100%;max-width:340px;border:1px solid var(--ph-70);padding:10px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 12px;align-items:center;background:var(--ph-08)}
+.lamp{width:34px;height:34px;border-radius:50%;border:1px solid var(--ph-40);background:radial-gradient(circle at 40% 35%,#5a3f10,#1d1405);box-shadow:inset 0 2px 3px #000}
+.lamp.on{background:radial-gradient(circle at 40% 35%,#fff6dc,#ffb000 55%,#a35d00);box-shadow:0 0 18px #ffb000,0 0 44px rgba(255,176,0,.5)}
+.rcvinfo{font-size:10px;letter-spacing:.14em;line-height:1.5;display:flex;justify-content:space-between;gap:8px}
+.rcvinfo b{font:11px/1.6 var(--f-display);display:block;margin-top:2px;letter-spacing:.04em}
+.wf{grid-column:1/-1;display:block;width:100%;height:64px;image-rendering:pixelated;border:1px solid var(--ph-40);background:#000}
+#mtree{width:100%;max-width:340px;user-select:none;-webkit-user-select:none;overflow:visible}
+#mtree .te{stroke:var(--ph-15);stroke-width:1.5}
+#mtree .te.on{stroke:var(--ph);stroke-width:2.5}
+#mtree .tn{cursor:pointer}
+#mtree .tn circle{fill:var(--glass);stroke:var(--ph-40);stroke-width:1.2}
+#mtree .tn text{fill:var(--ph-70);font:600 11px var(--f-body);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+#mtree .tn:hover circle{stroke:var(--ph)}
+#mtree .tn.on circle{fill:var(--ph-15);stroke:var(--ph)}
+#mtree .tn.on text{fill:var(--hot)}
+#mtree .tn.cur circle{fill:var(--ph);stroke:var(--hot)}
+#mtree .tn.cur text{fill:var(--glass)}
+#mtree .tn.bad circle{fill:rgba(255,59,59,.4);stroke:var(--jam)}
+#mtree .tn.okk circle{fill:var(--hot);stroke:var(--hot)}
+#mtree .tn.okk text{fill:var(--glass)}
+#mtree .root text{font:6px var(--f-display);fill:var(--ph)}
+#mtree .lbl{fill:var(--ph-70);font:500 10px var(--f-body);letter-spacing:.08em}
+.keyer{width:100%;max-width:340px;display:grid;gap:8px}
+.keyrow{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.14em;gap:10px;min-height:24px}
+.keyrow .tgt{font:500 17px var(--f-body);letter-spacing:.32em;color:var(--jam);text-shadow:0 0 8px rgba(255,59,59,.5)}
+.keyrow .tgt.done{color:var(--ph)}
+.keybtns{display:grid;grid-template-columns:1fr 1fr auto;gap:8px}
+.keybtns .tbtn{font-size:20px;padding:9px 0;letter-spacing:0}
+.keybtns .tbtn.rs{font-size:11px;padding:9px 12px;letter-spacing:.12em}
+/* демо в лекции и архиве */
+.keydemo{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.l2key{width:86px;height:86px;border-radius:50%;flex:none;border:1px solid var(--ph-70);background:radial-gradient(circle at 40% 35%,#3a3a30,#0d0d0a);color:var(--ph);font:8px var(--f-display);cursor:pointer;touch-action:none;box-shadow:0 5px 0 #000;text-shadow:inherit}
+.l2key.down{transform:translateY(4px);box-shadow:0 1px 0 #000,0 0 22px var(--ph-40);background:radial-gradient(circle at 40% 35%,var(--ph-40),#0d0d0a)}
+.l2key:focus-visible{outline:2px dashed var(--ph);outline-offset:4px}
+.keyout{flex:1;min-width:150px;display:grid;gap:4px;font-size:11px;letter-spacing:.14em}
+.keyout .seq{font-size:22px;letter-spacing:.3em;min-height:1.4em;color:var(--ph)}
+.keyout .txt{font-size:20px;letter-spacing:.2em;color:var(--hot);min-height:1.4em;word-break:break-all}
+.tl{display:flex;flex-wrap:wrap;gap:10px 0;align-items:flex-start;margin-bottom:12px}
+.tlg{display:flex;flex-direction:column;gap:5px}
+.tlr{display:flex}
+.tlr i{display:block;width:7px;height:16px;border:1px solid var(--ph-08);border-width:1px 0 1px 1px}
+.tlr i.s{background:var(--ph-40)}
+.tlr i.s.lit{background:var(--ph);box-shadow:0 0 8px var(--ph)}
+.tlr i.now{outline:1px solid var(--hot)}
+.tlg span{font-size:10px;letter-spacing:.08em;opacity:.8;white-space:nowrap}
+.tlg.gap span{opacity:.45}
+.mtab{display:grid;grid-template-columns:repeat(auto-fill,minmax(122px,1fr));gap:6px}
+.mtab button{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 10px;align-items:center;text-align:left;background:transparent;border:1px solid var(--ph-15);color:var(--ph);padding:6px 8px;cursor:pointer;text-shadow:inherit;font-family:var(--f-body)}
+.mtab button b{grid-row:span 2;font-size:20px;font-weight:500}
+.mtab button span{font-size:13px;letter-spacing:.14em}
+.mtab button small{font-size:10px;opacity:.65;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mtab button:hover,.mtab button.lit{border-color:var(--ph);background:var(--ph-15)}
+.mtab button:focus-visible{outline:2px dashed var(--ph);outline-offset:2px}
+.sosd{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.sosd .seq{font-size:20px;letter-spacing:.24em}
+</style>
+
+<script>
+(() => {
+const E = window.ECHO7; if (!E) return;
+const { $, $$, st, echo, openWin, typeText, reduced, audioInit, S, tone, burst, tick, chord, errSnd, jolt, setHiss, renderVera, renderArchive, PLACE, TITLES, SLIP, norm } = E;
+
+/* ================= АЗБУКА ================= */
+const MC = { А:'.-', Б:'-...', В:'.--', Г:'--.', Д:'-..', Е:'.', Ж:'...-', З:'--..', И:'..', Й:'.---', К:'-.-', Л:'.-..', М:'--', Н:'-.', О:'---', П:'.--.', Р:'.-.', С:'...', Т:'-', У:'..-', Ф:'..-.', Х:'....', Ц:'-.-.', Ч:'---.', Ш:'----', Щ:'--.-', Ъ:'--.--', Ы:'-.--', Ь:'-..-', Э:'..-..', Ю:'..--', Я:'.-.-',
+  '1':'.----', '2':'..---', '3':'...--', '4':'....-', '5':'.....', '6':'-....', '7':'--...', '8':'---..', '9':'----.', '0':'-----' };
+const BY = {}; for (const k in MC) BY[MC[k]] = k;
+const vis = c => c.replace(/\./g, '·').replace(/-/g, '—');
+const NAP = { А:'ай-даа', Б:'баа-ки-те-кут', В:'ви-даа-лаа', Г:'гаа-раа-жи', Д:'доо-ми-ки', Е:'есть', Ж:'я-бук-ва-жээ', З:'заа-каа-ти-ки', И:'и-ди', Й:'йош-каа-коо-таа', К:'каак-же-таак', Л:'лу-наа-ти-ки', М:'маа-маа', Н:'ноо-мер', О:'оо-коо-лоо', П:'пи-лаа-поо-ёт', Р:'ре-шаа-ет', С:'си-ни-е', Т:'таак', У:'у-нес-лоо', Ф:'фи-ли-моон-чик', Х:'хи-ми-чи-те', Ц:'цаа-пли-цаа-пли', Ч:'чаа-шаа-тоо-нет', Ш:'шаа-роо-ваа-ры', Щ:'щаа-ваам-не-шаа', Ы:'ыы-не-наа-доо', Ь:'тоо-мяг-кий-знак', Э:'э-ле-ктроо-ни-ки', Ю:'ю-ли-аа-наа', Я:'я-маал-я-маал' };
+
+/* ================= ДАННЫЕ УРОВНЯ ================= */
+/* Открытый текст хранится как есть, точки и тире код считает сам */
+const L2 = { code: 'ПОКА', jam: 'ПОКА ЗАПОМНИ', date: '09.03.1987', hz: 700,
+  plain: 'ВСЕМ КТО СЛЫШИТ ТЧК ГОВОРИТ ЭХО 7 ВНЕ РАСПИСАНИЯ ТЧК Г ИЗ УПРАВЛЕНИЯ ИЩЕТ МОЙ АРХИВ ТЧК БУДУ ПЕРЕДАВАТЬ ЕГО ПО СЛОВУ В КАЖДОМ ЭФИРЕ ТЧК ПЕРВОЕ СЛОВО ПОКА ЗАПОМНИ ТЧК В' };
+const items = []; let TOTAL = 0;
+{
+  const js = L2.plain.indexOf(L2.jam), je = js + L2.jam.length, cs = L2.plain.indexOf(L2.code + ' ЗАПОМНИ');
+  let u = 0, pos = 0;
+  L2.plain.split(' ').forEach((w, wi) => {
+    if (wi) { u += 4; pos++; }
+    [...w].forEach((ch, ci) => {
+      const code = MC[ch], marks = [], s = u;
+      [...code].forEach((m, mi) => { const len = m === '.' ? 1 : 3; marks.push({ s: u, len }); u += len; if (mi < code.length - 1) u += 1; });
+      items.push({ ch, code, s, e: u, marks, ws: ci === 0 && wi > 0, jam: pos >= js && pos < je, isCode: pos >= cs && pos < cs + L2.code.length, pn: w === 'ТЧК', ok: false });
+      u += 3; pos++;
+    });
+  });
+  TOTAL = u;
+}
+const JAM = items.filter(i => i.jam);
+
+const L = { opened: false, begun: false, arcOpen: false, rxOnce: false, firstLock: false, decoded: false, solved: false, hints: 0, miss: 0, manual: 0, t0: 0, tEnd: 0 };
+
+/* ================= ОКНА ================= */
+const desk = $('#desk');
+desk.insertBefore(document.createRange().createContextualFragment(`
+<div class="win" id="w-f2" data-id="f2" hidden>
+  <div class="wtitle"><span>ФАЙЛ_02.ENC · СИГНАЛ</span><button class="wbtn" type="button" data-close aria-label="Закрыть">×</button></div>
+  <div class="wbody">
+    <div class="lvlbar"><span>ПЕРЕХВАТ 09.03.1987 · 21:10 · ОТ: ВЕРА С. · 6 997 кГц</span><span class="clock" id="l2Clock">00:00</span></div>
+    <div class="grid">
+      <section class="msg" id="l2Msg">
+        <div class="l2stat"><span class="rx" id="l2Stat">ПРИЁМНИК ГОТОВ</span><span id="l2Cnt"></span></div>
+        <div class="msgtext l2text" id="l2Text" aria-live="polite"></div>
+        <div class="tape" id="l2Tape" aria-label="Телеграфная лента"><div class="tapein" id="l2TapeIn"></div></div>
+        <div class="l2ctl">
+          <button class="tbtn primary" type="button" id="l2Rx">ПРИНЯТЬ ЭФИР</button>
+          <button class="tbtn" type="button" id="l2Skip" hidden>ДОПЕЧАТАТЬ ⏭</button>
+          <span class="sp"></span>
+          <span class="spdlab">СКОРОСТЬ</span>
+          <div class="spd" id="l2Spd"><button class="tbtn" type="button" data-s="1">×1</button><button class="tbtn" type="button" data-s="2">×2</button><button class="tbtn on" type="button" data-s="3">×3</button></div>
+        </div>
+        <form class="codeform" id="l2Form" autocomplete="off">
+          <label for="l2Input">ФРАГМЕНТ · КОДОВОЕ СЛОВО</label>
+          <input class="term" id="l2Input" maxlength="20" placeholder="______">
+          <button class="tbtn primary" type="submit">ЗАПИСАТЬ</button>
+        </form>
+        <div class="errline" id="l2Err"></div>
+        <div id="l2Result"></div>
+      </section>
+      <section class="tool">
+        <div class="tooltitle"><span>ПРИЁМНИК Р-250</span><span>ДЕРЕВО МОРЗЕ</span></div>
+        <div class="rcv">
+          <div class="lamp" id="l2Lamp" aria-hidden="true"></div>
+          <div class="rcvinfo"><span>ЧАСТОТА<b>6 997</b></span><span>ТОН<b>700 Гц</b></span><span>ПОМЕХИ<b id="l2Noise">НИЗК.</b></span></div>
+          <canvas class="wf" id="l2Wf" aria-hidden="true"></canvas>
+        </div>
+        <svg id="mtree" viewBox="0 0 340 228" role="group" aria-label="Дерево азбуки Морзе"></svg>
+        <div class="keyer">
+          <div class="keyrow"><span id="l2SelLab">ГРУППА НЕ ВЫБРАНА</span><span class="tgt" id="l2Tgt"></span></div>
+          <div class="keybtns">
+            <button class="tbtn" type="button" id="l2Dot" aria-label="Точка">•</button>
+            <button class="tbtn" type="button" id="l2Dash" aria-label="Тире">—</button>
+            <button class="tbtn rs" type="button" id="l2Reset">СБРОС</button>
+          </div>
+        </div>
+        <div class="legend">Точка — шаг влево, тире — шаг вправо. Красные группы на ленте съели помехи: выбери группу и пройди её по дереву. С клавиатуры: точка «.», тире «-».</div>
+      </section>
+    </div>
+    <div class="lvlfoot">
+      <div class="lvlecho"><span class="who">ЭХО&gt;</span><span class="t" id="l2EchoT"></span></div>
+      <button class="tbtn" id="l2HintBtn" type="button">ПОДСКАЗКА 0/3</button>
+    </div>
+    <div class="hintbox" id="l2HintBox"></div>
+  </div>
+</div>
+<div class="win" id="w-lec2" data-id="lec2" hidden>
+  <div class="wtitle"><span>ЛЕКЦИЯ ЭХО · АЗБУКА МОРЗЕ</span><button class="wbtn" type="button" data-close aria-label="Закрыть">×</button></div>
+  <div class="wbody">
+    <h2 class="otitle" id="l2LecTitle"></h2>
+    <div class="lecbody" id="l2LecBody"></div>
+    <div id="l2LecDemo"></div>
+    <div class="lecnav">
+      <button class="tbtn" id="l2LecPrev" type="button">◀ НАЗАД</button>
+      <button class="tbtn primary" id="l2LecNext" type="button">ДАЛЕЕ ▶</button>
+      <span class="sp"></span>
+      <span class="lecnum" id="l2LecNum">1/4</span>
+      <button class="tbtn" id="l2LecSkip" type="button">ПРОПУСТИТЬ</button>
+    </div>
+  </div>
+</div>`), $('#desk .task'));
+
+PLACE.f2 = W => ({ x: 236, y: 10, w: Math.min(880, W - 248) });
+PLACE.lec2 = W => ({ x: 270, y: 30, w: Math.min(720, W - 290) });
+TITLES.f2 = 'ФАЙЛ_02'; TITLES.lec2 = 'ЛЕКЦИЯ';
+const wF2 = $('#w-f2'), wLec = $('#w-lec2');
+
+/* ================= ЗВУК ================= */
+const live = new Set(); let flashes = [];
+function sig(f, dur, when, vol = 0.06) {
+  if (!S.ctx) return; const c = S.ctx, t = c.currentTime + Math.max(0, when), o = c.createOscillator(), g = c.createGain();
+  o.type = 'sine'; o.frequency.value = f; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + 0.005);
+  g.gain.setValueAtTime(vol, t + Math.max(0.006, dur - 0.006)); g.gain.linearRampToValueAtTime(0, t + dur);
+  o.connect(g); g.connect(S.master); o.start(t); o.stop(t + dur + 0.02); live.add(o); o.onended = () => live.delete(o);
+  flashes.push([t, t + dur]);
+}
+function hush() { live.forEach(o => { try { o.stop(); } catch (e) {} }); live.clear(); flashes = []; }
+function playCode(code, dot = 0.09, when = 0, lampEl) {
+  let t = when;
+  for (const m of code) {
+    const d = (m === '.' ? 1 : 3) * dot; sig(L2.hz, d, t);
+    if (lampEl) { const a = t, b = d; setTimeout(() => lampEl.classList.add('on'), a * 1000); setTimeout(() => lampEl.classList.remove('on'), (a + b) * 1000); }
+    t += d + dot;
+  }
+  return t;
+}
+
+/* ================= ТЕКСТ И ЛЕНТА ================= */
+const textEl = $('#l2Text'), tapeIn = $('#l2TapeIn'), tape = $('#l2Tape');
+{
+  let ws = null;
+  items.forEach((it, i) => {
+    if (i === 0 || it.ws) { if (ws) textEl.appendChild(document.createTextNode(' ')); ws = document.createElement('span'); ws.className = 'w'; textEl.appendChild(ws); }
+    const sp = document.createElement('span'); sp.className = 'l pend' + (it.pn ? ' pn' : '') + (it.isCode ? ' code' : ''); sp.textContent = '·'; sp.dataset.i = i; ws.appendChild(sp); it.el = sp;
+    const g = document.createElement('button'); g.type = 'button'; g.className = 'grp' + (it.ws ? ' ws' : '') + (it.jam ? ' jam' : ''); g.dataset.i = i; g.tabIndex = -1;
+    g.setAttribute('aria-label', 'Группа ' + vis(it.code));
+    for (const m of it.code) { const k = document.createElement('i'); k.className = m === '.' ? 'd' : 't'; g.appendChild(k); }
+    tapeIn.appendChild(g); it.g = g;
+  });
+}
+function scrollTape(g) { const r = g.offsetLeft - tape.clientWidth * 0.6; tape.scrollLeft = Math.max(0, r); }
+function revealLetter(it, anim = true) {
+  if (!it.el.classList.contains('pend')) return;
+  it.el.classList.remove('pend');
+  if (it.jam && !it.ok) { it.el.textContent = '░'; it.el.classList.add('q'); }
+  else { it.el.textContent = it.ch; if (anim && !reduced) { it.el.classList.add('nw'); setTimeout(() => it.el.classList.remove('nw'), 400); } }
+}
+function revealAll() { items.forEach(it => { it.g.classList.add('rx'); [...it.g.children].forEach(k => k.classList.add('v')); it.g.tabIndex = 0; revealLetter(it, false); }); }
+const cntUpd = () => { $('#l2Cnt').textContent = R.done ? `В ПОМЕХАХ ${JAM.filter(j => !j.ok).length}/${JAM.length}` : ''; };
+
+/* ================= ПРИЁМ ЭФИРА ================= */
+const R = { playing: false, done: false, t0: 0, unit: 0, speed: 3, from: 0, cur: 0, jamOn: false };
+const BASE = 0.075;
+const stat = (t, on) => { const s = $('#l2Stat'); s.textContent = t; s.classList.toggle('on', !!on); };
+function ctlUpd() {
+  $('#l2Skip').hidden = !R.playing;
+  $('#l2Rx').textContent = R.playing ? 'ИДЁТ ПРИЁМ…' : R.done ? 'ПОВТОРИТЬ ЭФИР' : R.cur > 0 ? 'ПРОДОЛЖИТЬ ПРИЁМ' : 'ПРИНЯТЬ ЭФИР';
+  $('#l2Rx').disabled = R.playing; $('#l2Rx').classList.toggle('primary', !R.done);
+}
+function startRx(from = 0) {
+  audioInit(); hush(); if (!L.begun) begin(true);
+  if (!S.ctx || reduced) { revealAll(); return finishRx(); }
+  R.playing = true; R.from = from; R.unit = BASE / R.speed; R.jamOn = false;
+  R.t0 = S.ctx.currentTime + 0.25 - items[from].s * R.unit;
+  for (let i = from; i < items.length; i++) {
+    const it = items[i];
+    it.marks.forEach(m => sig(L2.hz, m.len * R.unit, R.t0 + m.s * R.unit - S.ctx.currentTime, it.jam ? 0.03 : 0.06));
+  }
+  setHiss(.014); stat(R.done ? 'ПОВТОР ЭФИРА · 09.03 · 21:10' : 'ИДЁТ ПРИЁМ · 09.03 · 21:10', true); ctlUpd();
+}
+function rxFrame() {
+  if (!R.playing || !S.ctx) return;
+  const u = (S.ctx.currentTime - R.t0) / R.unit;
+  for (let i = R.from; i < items.length; i++) {
+    const it = items[i]; if (u < it.s) break;
+    if (!it.g.classList.contains('rx')) { it.g.classList.add('rx'); it.g.tabIndex = 0; scrollTape(it.g); }
+    if (it.jam && !R.jamOn) { R.jamOn = true; setHiss(.07); $('#l2Noise').textContent = 'ВЫСОК.'; }
+    it.marks.forEach((m, k) => { if (u >= m.s) it.g.children[k].classList.add('v'); });
+    if (u >= it.e) revealLetter(it);
+    R.cur = i;
+  }
+  if (R.jamOn && !reduced && Math.random() < 0.12) burst(0.03 + Math.random() * 0.05, 1500 + Math.random() * 3000, 0.05);
+  if (u >= TOTAL) finishRx();
+}
+function finishRx() {
+  R.playing = false; R.done = true; R.jamOn = false; R.cur = 0; revealAll();
+  setHiss(L.decoded ? .006 : .014); $('#l2Noise').textContent = L.decoded ? 'НИЗК.' : 'СРЕДН.';
+  stat(L.decoded ? 'СИГНАЛ РАЗОБРАН' : 'ПРИЁМ ЗАВЕРШЁН · ЧАСТЬ В ПОМЕХАХ'); ctlUpd(); cntUpd();
+  if (!L.rxOnce) {
+    L.rxOnce = true;
+    echo('Конец эфира съели помехи: приёмник не разобрал два слова. Но лента их сохранила, это красные группы. Выбери группу и пройди её по дереву: точка — шаг влево, тире — шаг вправо. Можно жать кнопки • и — под деревом.');
+    const n = JAM.find(j => !j.ok); if (n && !L.solved) setTimeout(() => selectJam(items.indexOf(n), false), 300);
+  }
+}
+function pauseRx() { if (!R.playing) return; hush(); R.playing = false; R.jamOn = false; setHiss(.01); stat('ПРИЁМ ПРЕРВАН'); ctlUpd(); }
+$('#l2Rx').onclick = () => { if (R.playing) return; tick(); startRx(R.done ? 0 : R.cur); };
+$('#l2Skip').onclick = () => { hush(); tick(); finishRx(); };
+$('#l2Spd').addEventListener('click', e => {
+  const b = e.target.closest('[data-s]'); if (!b) return; R.speed = +b.dataset.s; tick();
+  $$('#l2Spd .tbtn').forEach(x => x.classList.toggle('on', x === b));
+  if (R.playing) startRx(R.cur);
+});
+
+/* ================= ДЕРЕВО МОРЗЕ ================= */
+const NS = 'http://www.w3.org/2000/svg', tree = $('#mtree'), TW = 340;
+const mk = (tag, at, p) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); if (p) p.appendChild(e); return e; };
+const tpos = c => { const d = c.length; let x = 0; for (const m of c) x = x * 2 + (m === '-' ? 1 : 0); return [d ? (x + 0.5) * TW / 2 ** d : TW / 2, 16 + d * 46 + (d === 4 && x % 2 ? 14 : 0)]; };
+const CODES = []; (function walk(c) { if (c.length) CODES.push(c); if (c.length < 4) { walk(c + '.'); walk(c + '-'); } })('');
+const tEdge = {}, tNode = {};
+mk('text', { x: 92, y: 20, class: 'lbl', 'text-anchor': 'middle' }, tree).textContent = '• ВЛЕВО';
+mk('text', { x: 248, y: 20, class: 'lbl', 'text-anchor': 'middle' }, tree).textContent = 'ВПРАВО —';
+CODES.forEach(c => { const [x1, y1] = tpos(c.slice(0, -1)), [x2, y2] = tpos(c); tEdge[c] = mk('line', { x1, y1, x2, y2, class: 'te' }, tree); });
+{ const [x, y] = tpos(''); const g = mk('g', { class: 'tn root', tabindex: 0, role: 'button', 'aria-label': 'Начало дерева' }, tree); mk('circle', { cx: x, cy: y, r: 13 }, g); mk('text', { x, y }, g).textContent = 'ПУСК'; tNode[''] = g; g.addEventListener('click', () => { audioInit(); tick(); K.cur = ''; paintTree(); }); }
+CODES.forEach(c => {
+  const [x, y] = tpos(c), g = mk('g', { class: 'tn', tabindex: 0, role: 'button', 'aria-label': `${BY[c]}: ${vis(c)}` }, tree);
+  mk('circle', { cx: x, cy: y, r: c.length === 4 ? 10 : 11 }, g); mk('text', { x, y }, g).textContent = BY[c];
+  g.addEventListener('click', () => nodeClick(c)); g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); nodeClick(c); } });
+  g.addEventListener('pointerenter', () => { if (K.sel < 0) paintTree(c); });
+  g.addEventListener('pointerleave', () => { if (K.sel < 0) paintTree(); });
+  tNode[c] = g;
+});
+function paintTree(path = K.cur, cls) {
+  Object.values(tEdge).forEach(e => e.classList.remove('on')); Object.values(tNode).forEach(n => n.classList.remove('on', 'cur'));
+  tNode[''].classList.add(path ? 'on' : 'cur');
+  for (let k = 1; k <= path.length; k++) { const p = path.slice(0, k); if (!tNode[p]) break; tEdge[p].classList.add('on'); tNode[p].classList.add(k === path.length ? 'cur' : 'on'); }
+}
+function flashNode(c, cls) { const n = tNode[c] || tNode['']; n.classList.add(cls); setTimeout(() => n.classList.remove(cls), 480); }
+
+/* ================= РУЧНАЯ РАСШИФРОВКА ================= */
+const K = { sel: -1, cur: '' };
+function selectJam(i, sound = true) {
+  const it = items[i]; if (!it || !it.jam || it.ok) return;
+  JAM.forEach(j => { j.g.classList.remove('sel'); j.el.classList.remove('sel'); });
+  K.sel = i; K.cur = ''; it.g.classList.add('sel'); it.el.classList.add('sel'); scrollTape(it.g);
+  const n = JAM.indexOf(it) + 1; $('#l2SelLab').textContent = `ГРУППА ${n}/${JAM.length}`;
+  const tg = $('#l2Tgt'); tg.textContent = vis(it.code); tg.classList.remove('done');
+  paintTree(); if (sound) { audioInit(); playCode(it.code, 0.11); }
+}
+function press(m) {
+  audioInit();
+  if (K.sel < 0 || items[K.sel].ok) { const n = JAM.find(j => !j.ok); if (!R.done || !n) { playCode(m, 0.09); return; } selectJam(items.indexOf(n), false); }
+  const it = items[K.sel]; sig(L2.hz, (m === '.' ? 1 : 3) * 0.08, 0, 0.06);
+  K.cur += m; paintTree();
+  if (!it.code.startsWith(K.cur)) {
+    flashNode(K.cur, 'bad'); tone(160, 0.12, 'square', 0.03); L.miss++;
+    if (L.miss === 3 || L.miss % 6 === 0) echo(`Сверяйся с группой под деревом: ${vis(it.code)}. Знаки идут слева направо, точка — шаг влево, тире — шаг вправо.`);
+    setTimeout(() => { K.cur = ''; paintTree(); }, 450);
+  } else if (K.cur === it.code) lockJam(K.sel);
+}
+function nodeClick(c) {
+  audioInit(); playCode(c, 0.09);
+  if (K.sel >= 0 && !items[K.sel].ok) {
+    const it = items[K.sel];
+    if (c === it.code) { K.cur = c; paintTree(); lockJam(K.sel); }
+    else { flashNode(c, 'bad'); L.miss++; if (L.miss === 3) echo(`Это ${BY[c]}, ${vis(c)}. А в группе ${vis(it.code)}. Пройди её от ПУСКА по одному знаку.`); }
+  } else { K.cur = c; paintTree(); }
+}
+function lockJam(i, auto = false) {
+  const it = items[i]; if (it.ok) return; it.ok = true; if (!auto) L.manual++;
+  it.el.classList.remove('q', 'sel', 'pend'); it.el.classList.add('got'); it.el.textContent = it.ch;
+  it.g.classList.remove('sel'); it.g.classList.add('fixed');
+  if (!auto) { flashNode(it.code, 'okk'); tone(990, 0.08, 'triangle', 0.045); tone(1320, 0.1, 'triangle', 0.04, 0.07); }
+  $('#l2Tgt').classList.add('done'); cntUpd();
+  if (!auto && !L.firstLock) { L.firstLock = true; echo(`Буква ${it.ch}. Так и читают морзянку: по одной группе. Дальше сам.`); }
+  K.sel = -1;
+  const n = JAM.find(j => !j.ok);
+  if (n) { if (!auto) setTimeout(() => { if (K.sel < 0) selectJam(items.indexOf(n)); }, 520); }
+  else onDecoded(auto && L.solved);
+}
+function onDecoded(quiet) {
+  if (L.decoded) return; L.decoded = true; K.sel = -1; K.cur = ''; paintTree();
+  $('#l2SelLab').textContent = 'ВСЕ ГРУППЫ РАЗОБРАНЫ'; $('#l2Tgt').textContent = '';
+  $('#l2Msg').classList.add('clear'); setHiss(.006); $('#l2Noise').textContent = 'НИЗК.'; stat('СИГНАЛ РАЗОБРАН'); cntUpd();
+  if (!reduced) { textEl.classList.remove('glitch'); void textEl.offsetWidth; textEl.classList.add('glitch'); burst(0.2, 900, 0.14); }
+  if (!quiet && !L.solved) { tone(880, 0.12, 'triangle', 0.05, 0.25); tone(1320, 0.2, 'triangle', 0.05, 0.37); echo('Сигнал разобран. {Ключ тогда дрожал у меня под пальцами.>} Найди кодовое слово и запиши его как фрагмент.'); }
+}
+$('#l2Dot').onclick = () => press('.'); $('#l2Dash').onclick = () => press('-');
+$('#l2Reset').onclick = () => { tick(); K.cur = ''; paintTree(); };
+document.addEventListener('keydown', e => {
+  if (wF2.hidden || !wF2.classList.contains('focus') || e.target.closest('input') || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.code === 'Period' || e.code === 'NumpadDecimal' || e.key === '.') { e.preventDefault(); press('.'); }
+  else if (e.code === 'Minus' || e.code === 'NumpadSubtract' || e.key === '-') { e.preventDefault(); press('-'); }
+  else if (e.key === 'Backspace') { e.preventDefault(); K.cur = ''; paintTree(); }
+});
+
+/* связь текста, ленты и дерева */
+function hoverOn(i) {
+  const it = items[i]; if (!it || it.el.classList.contains('pend')) return;
+  it.g.classList.add('hl'); it.el.classList.add('hl');
+  if ((!it.jam || it.ok) && K.sel < 0) paintTree(it.code);
+}
+function hoverOff() { $$('#w-f2 .hl').forEach(x => x.classList.remove('hl')); if (K.sel < 0) paintTree(); }
+function itemClick(i) {
+  const it = items[i]; if (!it || !it.g.classList.contains('rx')) return; audioInit();
+  if (it.jam && !it.ok) { if (R.playing) return; selectJam(i); }
+  else { playCode(it.code, 0.1); if (K.sel < 0) { K.cur = it.code; paintTree(); } }
+}
+[textEl, tapeIn].forEach(el => {
+  el.addEventListener('pointerover', e => { const t = e.target.closest('[data-i]'); if (t) { hoverOff(); hoverOn(+t.dataset.i); } });
+  el.addEventListener('pointerleave', hoverOff);
+  el.addEventListener('click', e => { const t = e.target.closest('[data-i]'); if (t) itemClick(+t.dataset.i); });
+});
+
+/* ================= ПРИЁМНИК: ЛАМПА И ВОДОПАД ================= */
+const lamp = $('#l2Lamp'), wf = $('#l2Wf'), wx = wf.getContext('2d'); wf.width = 170; wf.height = 64; let lampOn = false, lastW = 0;
+wx.fillStyle = '#000'; wx.fillRect(0, 0, 170, 64);
+function drawWF(on) {
+  const img = wx.getImageData(0, 0, 170, 63); wx.putImageData(img, 0, 1); wx.fillStyle = '#000'; wx.fillRect(0, 0, 170, 1);
+  const nz = R.jamOn ? 0.55 : L.decoded ? 0.12 : 0.22;
+  for (let x = 0; x < 170; x++) {
+    let v = Math.pow(Math.random(), 3) * nz + 0.02; const dx = Math.abs(x - 96);
+    if (on) { if (dx < 2) v = 1; else if (dx < 6) v += 0.45 * (1 - dx / 6); } else if (dx < 1) v += 0.08;
+    if (R.jamOn && Math.random() < 0.05) v += Math.random() * 0.6;
+    wx.fillStyle = `rgba(255,176,0,${Math.min(1, v)})`; wx.fillRect(x, 0, 1, 1);
+  }
+}
+function frame(t) {
+  requestAnimationFrame(frame);
+  if (wF2.hidden) return;
+  if (R.playing) rxFrame();
+  const now = S.ctx ? S.ctx.currentTime : 0, on = flashes.some(([a, b]) => now >= a && now < b);
+  if (on !== lampOn) { lampOn = on; lamp.classList.toggle('on', on); }
+  if (t - lastW > 45 && !reduced) { lastW = t; drawWF(on); }
+  if (flashes.length > 400) flashes = flashes.filter(f => f[1] > now);
+}
+requestAnimationFrame(frame);
+if (reduced) drawWF(false);
+
+/* ================= ЭХО В ОКНЕ УРОВНЯ ================= */
+const elog = $('#elog'), l2T = $('#l2EchoT');
+new MutationObserver(() => { const t = elog.lastElementChild && elog.lastElementChild.querySelector('.t'); if (t) l2T.textContent = t.textContent; })
+  .observe(elog, { subtree: true, childList: true, characterData: true });
+
+/* ================= ХОД УРОВНЯ ================= */
+function open() {
+  audioInit(); openWin('f2');
+  if (!L.opened) {
+    L.opened = true; L.arcOpen = true; paintTree();
+    setTimeout(() => { openWin('lec2'); lec.i = 0; renderSlide(); }, reduced ? 0 : 450);
+    echo('Это перехват от 9 марта, самый ранний из пяти. {В тот вечер я впервые>В тот вечер Вера впервые} вышла в эфир без разрешения. Он пришёл не буквами, а сигналами. Сначала коротко про азбуку Морзе. Лекцию можно пропустить, она останется в АРХИВЕ.');
+  }
+}
+function begin(silent) {
+  if (L.begun) return; L.begun = true; L.t0 = Date.now();
+  if (!silent) echo('Включаю приёмник. Он сам переводит сигналы в буквы, а всё, что слышит, пишет на ленту. Слушай, что передавала ЭХО-7 девятого марта.');
+}
+new MutationObserver(() => { if (wF2.hidden) { pauseRx(); hoverOff(); } }).observe(wF2, { attributes: true, attributeFilter: ['hidden'] });
+new MutationObserver(() => {
+  if (!wLec.hidden) return; lec.i = -1;
+  if (!L.begun) { begin(); if (!wF2.hidden) setTimeout(() => { if (!R.playing && !R.done) startRx(0); }, reduced ? 0 : 1100); }
+}).observe(wLec, { attributes: true, attributeFilter: ['hidden'] });
+setInterval(() => {
+  if (!L.t0) return; const sec = Math.floor(((L.tEnd || Date.now()) - L.t0) / 1000);
+  $('#l2Clock').textContent = String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0');
+}, 500);
+
+/* ================= КОДОВОЕ СЛОВО ================= */
+$('#l2Form').addEventListener('submit', e => {
+  e.preventDefault(); audioInit(); if (L.solved) return;
+  const v = norm($('#l2Input').value); if (!v) return;
+  if (v === norm(L2.code)) return solved();
+  errSnd(); const f = $('#l2Form'); f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake');
+  const er = $('#l2Err'); er.textContent = 'ОТКАЗ · ЭТО НЕ ФРАГМЕНТ'; er.classList.add('on'); setTimeout(() => { er.textContent = ''; er.classList.remove('on'); }, 2200);
+  if (v === 'ЗАПОМНИ') echo('ЗАПОМНИ — это просьба Веры, а не слово. Посмотри, что стоит перед ним.');
+  else if (!R.done) echo('Сначала прими эфир. Нажми ПРИНЯТЬ ЭФИР.');
+  else echo(L.decoded ? 'Не то слово. Вера пишет прямо: «первое слово …». Какое?' : 'Конец сообщения ещё в помехах. Разбери красные группы на ленте.');
+});
+function solved() {
+  L.solved = true; L.tEnd = Date.now(); if (!L.t0) L.t0 = L.tEnd; $('#l2Err').textContent = ''; $('#l2Err').classList.remove('on');
+  if (R.playing) { hush(); R.playing = false; }
+  revealAll(); R.done = true; ctlUpd(); JAM.forEach(j => lockJam(items.indexOf(j), true)); onDecoded(true);
+  chord(); jolt();
+  st.frags[2] = { word: L2.code, date: L2.date };
+  const n = Object.keys(st.frags).length;
+  renderVera(); $('#veraSub').textContent = `ПОВРЕЖДЁН · ${n}/5`; $('.ico[data-open="vera"]').classList.add('ping');
+  $('#l2Input').value = L2.code; $('#l2Input').disabled = true; $('#l2Form').querySelector('button').disabled = true; $('#l2HintBtn').disabled = true;
+  const sec = Math.floor((L.tEnd - L.t0) / 1000), tm = String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0');
+  $('#l2Result').innerHTML = `<div class="result">
+    <div class="stamp">ФРАГМЕНТ ${n}/5 ЗАПИСАН</div>
+    <div class="stats"><span>Время<b>${tm}</b></span><span>Подсказки<b>${L.hints}/3</b></span><span>Букв вручную<b>${L.manual}/${JAM.length}</b></span><span>Эфир<b>09.03</b></span></div>
+    <p>Ты принял морзянку: разобрался, как точки, тире и паузы складываются в буквы, прочитал дерево Морзе и узнал, почему азбука Морзе — это код, а не шифр.</p>
+    <div class="row"><button class="tbtn primary" type="button" id="l2GoVera">ОТКРЫТЬ ВЕРА.SYS</button><button class="tbtn" type="button" id="l2GoArc">В АРХИВ</button></div></div>`;
+  $('#l2GoVera').onclick = () => openWin('vera');
+  $('#l2GoArc').onclick = () => { renderArchive(0); openWin('arc'); renderArc(); };
+  echo(`Фрагмент записан в ВЕРА.SYS: ${L2.code}, эфир 09.03.1987.`);
+  echo('Заметь: файл второй, а эфир самый ранний, и Вера сама пишет «первое слово». Вспомни черновик из КОРЗИНЫ. {Я хотела, чтобы ты не запутался.>}');
+  echo(`${L2.code} станет паролем к ФАЙЛУ_03.`);
+}
+
+/* ================= ПОДСКАЗКИ ================= */
+const first = JAM[0];
+const HINTS = [
+  { t: 'НАМЁК', x: 'Приёмник не разобрал конец эфира, но лента записала сигналы. Красные группы на ленте — это буквы в помехах, по одной букве в группе. Нажми на первую красную группу: она прозвучит медленно, а её точки и тире появятся под деревом.' },
+  { t: 'ОБЪЯСНЕНИЕ', x: `Дерево читается сверху вниз, от ПУСКА. Точка — шаг влево, тире — шаг вправо, и так по каждому знаку группы. Первая группа ${vis(first.code)}: ${[...first.code].map((m, k) => `${m === '.' ? 'точка' : 'тире'} ведёт к ${BY[first.code.slice(0, k + 1)]}`).join(', ')}. Значит, первая буква ${first.ch}. Ошибёшься — дерево сбросится, ничего страшного. Пауза побольше на ленте — пробел между словами.` },
+  { t: 'ОТВЕТ', x: `В помехах два слова: ${L2.jam}. Вера пишет: «первое слово ${L2.code}, запомни». Кодовое слово — ${L2.code}.`, btn: true }
+];
+$('#l2HintBtn').onclick = () => {
+  audioInit(); if (L.hints >= 3 || L.solved) return; const h = HINTS[L.hints]; L.hints++;
+  $('#l2HintBtn').textContent = `ПОДСКАЗКА ${L.hints}/3`; if (L.hints >= 3) $('#l2HintBtn').disabled = true;
+  const d = document.createElement('div'); d.className = 'hint'; d.innerHTML = `<b>${L.hints}/3 · ${h.t}</b>${h.x}`;
+  if (h.btn) { const b = document.createElement('button'); b.className = 'tbtn'; b.type = 'button'; b.textContent = 'ДОРАЗОБРАТЬ ЛЕНТУ'; b.onclick = () => { if (!R.done) { hush(); finishRx(); } JAM.forEach(j => lockJam(items.indexOf(j), true)); }; d.appendChild(document.createElement('br')); d.appendChild(b); }
+  $('#l2HintBox').appendChild(d); tone(660, 0.1, 'triangle', 0.04);
+  echo(h.t === 'ОТВЕТ' ? 'Держи ответ. Баллы он не снимет, но звание в финале будет скромнее.' : 'Подсказка под деревом.');
+};
+
+/* ================= ЛЕКЦИЯ ================= */
+const demoWrap = cap => { const w = document.createElement('div'); w.className = 'demo'; w.innerHTML = `<div class="cap">${cap}</div>`; return w; };
+function demoKey() {
+  const w = demoWrap('Телеграфный ключ. Нажимай: коротко — точка, подольше — тире. Пауза — конец буквы');
+  w.insertAdjacentHTML('beforeend', '<div class="keydemo"><button class="l2key" type="button">КЛЮЧ</button><div class="keyout"><span>ЗНАКИ</span><div class="seq"></div><span>ПРИНЯТО</span><div class="txt"></div></div></div>');
+  const key = w.querySelector('.l2key'), seq = w.querySelector('.seq'), txt = w.querySelector('.txt');
+  let o = null, g = null, t0 = 0, cur = '', tm = 0;
+  const down = e => {
+    e.preventDefault(); audioInit(); if (key.classList.contains('down')) return;
+    key.classList.add('down'); t0 = performance.now(); clearTimeout(tm);
+    if (S.ctx) { const c = S.ctx; o = c.createOscillator(); g = c.createGain(); o.type = 'sine'; o.frequency.value = L2.hz; g.gain.setValueAtTime(0, c.currentTime); g.gain.linearRampToValueAtTime(0.07, c.currentTime + 0.005); o.connect(g); g.connect(S.master); o.start(); }
+  };
+  const up = () => {
+    if (!key.classList.contains('down')) return; key.classList.remove('down');
+    if (o) { const c = S.ctx; g.gain.setTargetAtTime(0, c.currentTime, 0.006); o.stop(c.currentTime + 0.06); o = null; }
+    cur += performance.now() - t0 < 200 ? '.' : '-'; if (cur.length > 6) cur = cur.slice(-6); seq.textContent = vis(cur);
+    tm = setTimeout(() => { txt.textContent = (txt.textContent + (BY[cur] || '?')).slice(-14); cur = ''; seq.textContent = ''; }, 750);
+  };
+  key.addEventListener('pointerdown', down); ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => key.addEventListener(ev, up));
+  key.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) down(e); });
+  key.addEventListener('keyup', e => { if (e.key === ' ' || e.key === 'Enter') up(); });
+  return w;
+}
+function demoTiming() {
+  const w = demoWrap('Ритм слова «ЭХО 7». Одна клетка — длительность точки'), box = document.createElement('div'); box.className = 'tl';
+  const cells = [];
+  const cell = (r, on) => { const c = document.createElement('i'); if (on) c.className = 's'; r.appendChild(c); cells.push({ c, on }); };
+  const group = (lab, isGap) => { const g = document.createElement('div'); g.className = 'tlg' + (isGap ? ' gap' : ''); const r = document.createElement('div'); r.className = 'tlr'; g.appendChild(r); g.insertAdjacentHTML('beforeend', `<span>${lab}</span>`); box.appendChild(g); return r; };
+  [['Э', 'Х', 'О'], ['7']].forEach((wd, wi) => {
+    if (wi) { const r = group('7'); for (let k = 0; k < 7; k++) cell(r, false); }
+    wd.forEach((ch, ci) => {
+      if (ci) { const r = group('3', true); for (let k = 0; k < 3; k++) cell(r, false); }
+      const r = group(`${ch} ${vis(MC[ch])}`);
+      [...MC[ch]].forEach((m, mi) => { if (mi) cell(r, false); for (let k = 0; k < (m === '.' ? 1 : 3); k++) cell(r, true); });
+    });
+  });
+  w.appendChild(box);
+  w.insertAdjacentHTML('beforeend', '<p class="note" style="font-size:12px;opacity:.8">Точка — 1 клетка, тире — 3. Пауза внутри буквы — 1, между буквами — 3, между словами — 7.</p>');
+  const b = document.createElement('button'); b.className = 'tbtn'; b.type = 'button'; b.textContent = '▶ ПРОИГРАТЬ'; b.style.marginTop = '10px'; w.appendChild(b);
+  let busy = false;
+  b.onclick = () => {
+    if (busy) return; busy = true; audioInit(); const dot = 0.12;
+    cells.forEach(x => x.c.classList.remove('lit', 'now'));
+    let run = -1; cells.forEach((x, i) => { if (x.on && run < 0) run = i; if ((!x.on || i === cells.length - 1) && run >= 0) { const end = x.on ? i + 1 : i; sig(L2.hz, (end - run) * dot, run * dot); run = -1; } });
+    cells.forEach((x, i) => setTimeout(() => { cells.forEach(y => y.c.classList.remove('now')); x.c.classList.add('now'); if (x.on) x.c.classList.add('lit'); }, i * dot * 1000));
+    setTimeout(() => { cells.forEach(y => y.c.classList.remove('now')); busy = false; }, cells.length * dot * 1000 + 100);
+  };
+  return w;
+}
+function demoTable() {
+  const w = demoWrap('Русская азбука и напевы. Нажми на букву, чтобы услышать её'), g = document.createElement('div'); g.className = 'mtab';
+  Object.keys(NAP).forEach(ch => {
+    const b = document.createElement('button'); b.type = 'button'; b.innerHTML = `<b>${ch}</b><span>${vis(MC[ch])}</span><small>${NAP[ch]}</small>`;
+    b.onclick = () => { audioInit(); const d = playCode(MC[ch], 0.1); b.classList.add('lit'); setTimeout(() => b.classList.remove('lit'), d * 1000); };
+    g.appendChild(b);
+  });
+  w.appendChild(g); return w;
+}
+function demoSos() {
+  const w = demoWrap('Сигнал бедствия SOS: три точки, три тире, три точки — одной группой, без пауз между буквами');
+  w.insertAdjacentHTML('beforeend', '<div class="sosd"><div class="lamp"></div><button class="tbtn" type="button">ПЕРЕДАТЬ SOS</button><span class="seq">··· ——— ···</span></div>');
+  const lp = w.querySelector('.lamp'), b = w.querySelector('.tbtn'); let busy = false;
+  b.onclick = () => { if (busy) return; busy = true; audioInit(); const d = playCode('...---...', 0.11, 0, lp); setTimeout(() => busy = false, d * 1000); };
+  return w;
+}
+const SLIDES = [
+  { t: 'ОТКУДА ОНА ВЗЯЛАСЬ', p: [
+      'В 1830-х годах американский художник-портретист Сэмюэл Морзе загорелся идеей электрического телеграфа. Вместе с инженером Альфредом Вейлем он придумал, как передавать текст по проводу всего двумя сигналами: коротким и длинным.',
+      '24 мая 1844 года по линии Вашингтон — Балтимор ушла первая официальная телеграмма: «Что сотворил Бог». Ток в проводе либо идёт, либо нет. Вся азбука держится на том, как долго он идёт.'],
+    demo: demoKey },
+  { t: 'КАК ОНА УСТРОЕНА', p: [
+      'Короткий сигнал называют точкой, длинный — тире. Тире длится как три точки. Внутри буквы сигналы разделяет пауза в одну точку, между буквами пауза в три точки, между словами — в семь.',
+      'Самым частым буквам достались самые короткие коды: Е — одна точка, Т — одно тире. По легенде, Вейль пересчитал литеры в наборной кассе типографии, чтобы понять, какие буквы нужны чаще. Это та же идея частот, что выдала шифр Цезаря в первом файле.',
+      'Важно: азбука Морзе — это код, а не шифр. Таблица открыта всем, секрета в ней нет. Её задача не спрятать текст, а донести его. {Поэтому я и выбрала её первой.>}'],
+    demo: demoTiming },
+  { t: 'РУССКАЯ АЗБУКА', p: [
+      'Для русского языка коды взяли у похожих латинских букв: А как A, Б как B, В как W. Для Ч, Ш, Щ, Ю, Я подобрали свои сочетания.',
+      'Опытный радист не считает точки, а слышит мелодию буквы. Чтобы её запомнить, учили напевы: протяжные слоги с А, О и Ы звучат как тире, короткие — как точки. А — «ай-даа», М — «маа-маа», С — «си-ни-е».',
+      'Коды удобно разложить деревом: от начала точка ведёт влево, тире вправо. Такое дерево будет у тебя на экране.'],
+    demo: demoTable },
+  { t: 'ГДЕ ОНА ЗВУЧИТ', p: [
+      'В 1906 году на радиотелеграфной конференции в Берлине выбрали международный сигнал бедствия ···———··· (SOS). Его трудно спутать с чем-то ещё даже сквозь помехи. В 1912 году его передавал тонущий «Титаник».',
+      'Во время холодной войны в эфире работали числовые станции. Они передавали азбукой Морзе или голосом ряды цифр для тех, у кого был ключ. Станция ЭХО-7 была из таких. {Я слушала их с детства.>}',
+      'Сегодня морзянкой пользуются радиолюбители, а радиомаяки для самолётов до сих пор сообщают свои позывные точками и тире.'],
+    demo: demoSos }
+];
+const lec = { i: -1, fast: false, typing: false };
+async function renderSlide() {
+  const s = SLIDES[lec.i], my = lec.i; lec.fast = false; lec.typing = true;
+  $('#l2LecNum').textContent = `${lec.i + 1}/${SLIDES.length}`; $('#l2LecTitle').textContent = s.t;
+  const body = $('#l2LecBody'); body.innerHTML = ''; const demo = $('#l2LecDemo'); demo.innerHTML = ''; demo.appendChild(s.demo());
+  $('#l2LecPrev').disabled = lec.i === 0; $('#l2LecNext').textContent = lec.i === SLIDES.length - 1 ? 'К ПЕРЕХВАТУ ▶' : 'ДАЛЕЕ ▶';
+  $('#w-lec2 .wbody').scrollTop = 0;
+  for (const p of s.p) { if (lec.i !== my || wLec.hidden) return; const el = document.createElement('p'); body.appendChild(el); await typeText(el, p, 11, () => lec.fast || lec.i !== my); }
+  if (lec.i === my) lec.typing = false;
+}
+const closeLec = () => { const c = wLec.querySelector('[data-close]'); c.click(); };
+$('#l2LecNext').onclick = () => { audioInit(); if (lec.typing) { lec.fast = true; return; } if (lec.i < SLIDES.length - 1) { lec.i++; tick(); renderSlide(); } else closeLec(); };
+$('#l2LecPrev').onclick = () => { if (lec.i > 0) { lec.i--; tick(); renderSlide(); } };
+$('#l2LecSkip').onclick = closeLec;
+
+/* ================= АРХИВ: вторая запись ================= */
+const arList = $('#arList');
+function patchArc() {
+  const bts = arList.querySelectorAll('button'); if (bts.length < 2 || !L.arcOpen || bts[1].dataset.l2) return;
+  const b = bts[1]; b.dataset.l2 = '1'; b.disabled = false; b.textContent = '02 · АЗБУКА МОРЗЕ'; b.onclick = () => { tick(); renderArc(); };
+  bts[0].onclick = () => { tick(); renderArchive(0); };
+}
+new MutationObserver(patchArc).observe(arList, { childList: true });
+function renderArc() {
+  patchArc(); arList.querySelectorAll('button').forEach((b, i) => b.classList.toggle('sel', i === 1));
+  const body = $('#arBody'); body.innerHTML = '<h3 class="otitle">АЗБУКА МОРЗЕ</h3>';
+  if (L.solved) body.insertAdjacentHTML('beforeend', `<p class="note" style="margin-bottom:12px">ФАЙЛ_02 принят и разобран. Фрагмент: ${L2.code}, эфир 09.03.1987.</p>`);
+  SLIDES.forEach(s => {
+    const h = document.createElement('h4'); h.textContent = s.t; body.appendChild(h);
+    s.p.forEach(p => { const t = p.replace(SLIP, '$2').trim(); if (!t) return; const e = document.createElement('p'); e.textContent = t; body.appendChild(e); });
+    body.appendChild(s.demo());
+  });
+  $('#w-arc .wbody').scrollTop = 0;
+}
+
+ctlUpd(); paintTree();
+window.ECHO7_L2 = { open };
+})();
+</script>
+
+</body></html>
